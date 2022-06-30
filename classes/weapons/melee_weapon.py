@@ -1,18 +1,19 @@
+
 from enum import Enum
-# from classes.weapon import Weapon, WeaponType
+from classes.weapons.weapon import Weapon, WeaponType
 
 # _________________
 import random
 
 
-def _uniqueid():
+def uniqueid():
     seed = random.getrandbits(32)
     while True:
         yield seed
         seed += 1
 
 
-uid = _uniqueid()
+uid = uniqueid()
 # _________________
 
 knifes_data = {
@@ -30,7 +31,7 @@ knifes_data = {
     },
     'knife': {
         'id': uid,
-        'name': 'small_knife',
+        'name': 'knife',
         'mass': 'light',
         # 'damage': '',
         'hands': 1,
@@ -55,32 +56,14 @@ knifes_data = {
 }
 
 
-# class MeleeWeaponType(WeaponType):
-#     SMALL_KNIFE = 0
-#     KNIFE = 1
-#     MACHETE = 2
-
-
-class Weapon():
-    def __init__(self, dict):
-        self.id = next(dict['id'])
-        self.name = dict['name']
-        self.mass = dict['mass']
-        # self.damage = dict['damage']
-        self.hands = dict['hands']
-        self.price = dict['price']
-        # self.quality = dict['quality']
-        self.is_hidden = dict['is_hidden']
-        self.dices = dict['dices']
-        self.dice_type = dict['dice_type']
-
-
 class MeleeWeapon(Weapon):
     def __init__(self, dict):
         super().__init__(dict)
 
 
-for i in range(10):
-    knife = MeleeWeapon(knifes_data['knife'])
-    small_knife = MeleeWeapon(knifes_data['small_knife'])
-    print(knife.id, small_knife.id)
+# knifes = [MeleeWeapon(knifes_data[knife]) for knife in knifes_data]
+
+# print(knifes)
+
+# knife = MeleeWeapon(knifes_data['knife'])
+# print(knife)
