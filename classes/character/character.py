@@ -1,10 +1,12 @@
-
-
 import random
+from re import I
+
+from classes.character.skills import Skills
+from character_data.skill_examples import skill_examples
 
 
 class Character:
-    def __init__(self, name, role, intel, ref, dex, tech, cool, will, lusk, move, body, emp) -> None:
+    def __init__(self, name, role, intel, ref, dex, tech, cool, will, lusk, move, body, emp, extra_skills) -> None:
         self._name = name
         self._role = role
         self._intel = intel
@@ -18,21 +20,39 @@ class Character:
         self._body = body
         self._emp = emp
 
-        # skills
-        self.athletics = self._dex + 3
-        self.education = self._intel + 2
-        self.local_expert = self._intel + 5
-        self.perseption = self._intel + 3
-        self.brawling = self.
-        self.evasion = self.
-        self.marksmanship = self.
-        self.persuasion = self.
-        self.concentration = self.
-        self.human_perseption = self.
-        self.melee_weapon = self.
-        self.play_instrument = self.
+        self.Skills = Skills(
+            # Fighting Skills
+            _brawling=self._dex + extra_skills['brawling'],
+            _evasion=self._dex + extra_skills['evasion'],
+            _marksmanship=self._ref + extra_skills['marksmanship'],
+            _melee_weapon=self._dex + extra_skills['melee_weapon'],
+            # Awareness Skills
+            _concentration=self._will + extra_skills['concentration'],
+            _perception=self._intel + extra_skills['perception'],
+            _tracking=self._intel + extra_skills['tracking'],
+            # Control Skills
+            _driving=self._ref + extra_skills['driving'],
+            # Body Skills
+            _athletics=self._dex + extra_skills['athletics'],
+            _stealth=self._emp + extra_skills['stealth'],
+            # Technique Skills
+            _basic_tech=self._tech + extra_skills['basic_tech'],
+            _cybertech=self._tech + extra_skills['cybertech'],
+            _first_aid=self._tech + extra_skills['first_aid'],
+            # Performance_skills
+            _play_instrument=self._emp + extra_skills['play_instrument'],
+            # Education Skills
+            _education=self._intel + extra_skills['education'],
+            _local_expert=self._intel + extra_skills['local_expert'],
+            # Social Skills
+            _bribery=self._cool + extra_skills['bribery'],
+            _conversation=self._emp + extra_skills['conversation'],
+            _human_perception=self._emp + extra_skills['human_perception'],
+            _interrogation=self._cool + extra_skills['interrogation'],
+            _persuasion=self._cool + extra_skills['persuasion'],
+        )
 
-    # getter method
+    # getter methods
 
     def get_name(self):
         return self._name
@@ -125,7 +145,7 @@ if __name__ == '__main__':
     def generate_random_parameters(name, role):
         parameters = [random.randint(1, 10) for i in range(10)]
 
-        character = Character(name, role, *parameters)
+        character = Character(name, role, *parameters, skill_examples['FIXER'])
         return character
 
     security_guard = generate_random_parameters('security', 'solo')
@@ -143,5 +163,7 @@ if __name__ == '__main__':
         'Воля', security_guard.get_lusk(), '\n',
         'Скорость', security_guard.get_move(), '\n',
         'Тело', security_guard.get_body(), '\n',
-        'Эмпатия', security_guard.get_emp(),
+        'Эмпатия', security_guard.get_emp(), '\n',
+        'brawling', security_guard.Skills.get_brawling(), '\n',
+
     )

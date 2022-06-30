@@ -91,3 +91,46 @@ PERSONALITY = {
     Personality.d9: 'Умный и отстранённый',
     Personality.d10: 'Дружелюбный и общительный'
 }
+
+life_path_exemples = [
+    {'Family': 'd2', 'Motivation': 'd1', 'Goals': 'd7', 'Friends': [],
+        'Enemies': ['d9', 'd6'], 'Romance': 'd', 'Personality': 'd5'},
+    {'Family': 'd1', 'Motivation': 'd5', 'Goals': 'd9', 'Friends': [],
+        'Enemies': [], 'Romance': 'd3', 'Personality': 'd3'},
+    {'Family': 'd', 'Motivation': 'd8', 'Goals': 'd9', 'Friends': [],
+        'Enemies': ['d', 'd6'], 'Romance': 'd7', 'Personality': 'd8'},
+    {'Family': 'd', 'Motivation': 'd8', 'Goals': 'd7', 'Friends': [],
+        'Enemies': [], 'Romance': 'd4', 'Personality': 'd8'},
+    {'Family': 'd', 'Motivation': 'd8', 'Goals': 'd6', 'Friends': [],
+        'Enemies': ['d'], 'Romance': 'd5', 'Personality': 'd4'},
+    {'Family': 'd9', 'Motivation': 'd2', 'Goals': 'd5', 'Friends': [],
+        'Enemies': [], 'Romance': 'd1', 'Personality': 'd6'},
+    {'Family': 'd4', 'Motivation': 'd1', 'Goals': 'd3', 'Friends': [],
+        'Enemies': ['d3', 'd4', 'd', 'd9'], 'Romance': 'd6', 'Personality': 'd9'},
+    {'Family': 'd1', 'Motivation': 'd5', 'Goals': 'd2', 'Friends': [
+        'd9'], 'Enemies': [], 'Romance': 'd1', 'Personality': 'd3'},
+    {'Family': 'd8', 'Motivation': 'd3', 'Goals': 'd3', 'Friends': [
+        'd1', 'd7'], 'Enemies': [], 'Romance': 'd8', 'Personality': 'd8'},
+    {'Family': 'd5', 'Motivation': 'd7', 'Goals': 'd', 'Friends': [],
+        'Enemies': [], 'Romance': 'd6', 'Personality': 'd4'},
+    {'Family': 'd2', 'Motivation': 'd6', 'Goals': 'd5', 'Friends': [],
+        'Enemies': [], 'Romance': 'd4', 'Personality': 'd5'},
+    {'Family': 'd1', 'Motivation': 'd5', 'Goals': 'd6', 'Friends': [
+        'd', 'd7', 'd'], 'Enemies': ['d', 'd7'], 'Romance': 'd2', 'Personality': 'd8'},
+    {'Family': 'd9', 'Motivation': 'd', 'Goals': 'd8', 'Friends': [],
+        'Enemies': [], 'Romance': 'd1', 'Personality': 'd1'},
+    {'Family': 'd1', 'Motivation': 'd3', 'Goals': 'd3', 'Friends': [],
+        'Enemies': ['d8', 'd8', 'd5', 'd8'], 'Romance': 'd5', 'Personality': 'd'},
+    {'Family': 'd8', 'Motivation': 'd4', 'Goals': 'd8', 'Friends': [],
+        'Enemies': [], 'Romance': 'd7', 'Personality': 'd9'},
+    {'Family': 'd2', 'Motivation': 'd9', 'Goals': 'd5', 'Friends': [],
+        'Enemies': [], 'Romance': 'd1', 'Personality': 'd9'},
+    {'Family': 'd9', 'Motivation': 'd4', 'Goals': 'd9', 'Friends': [],
+        'Enemies': [], 'Romance': 'd4', 'Personality': 'd2'},
+    {'Family': 'd1', 'Motivation': 'd7', 'Goals': 'd3', 'Friends': [],
+        'Enemies': [], 'Romance': 'd1', 'Personality': 'd7'},
+    {'Family': 'd2', 'Motivation': 'd8', 'Goals': 'd6', 'Friends': [
+        'd8', 'd7', 'd6'], 'Enemies': ['d3', 'd5'], 'Romance': 'd7', 'Personality': 'd1'},
+    {'Family': 'd2', 'Motivation': 'd7', 'Goals': 'd1', 'Friends': [],
+        'Enemies': [], 'Romance': 'd', 'Personality': 'd8'}
+]
