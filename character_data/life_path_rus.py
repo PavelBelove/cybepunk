@@ -93,8 +93,8 @@ PERSONALITY = {
 }
 
 life_path_exemples = [
-    {'Family': 'd2', 'Motivation': 'd1', 'Goals': 'd7', 'Friends': [],
-        'Enemies': ['d9', 'd6'], 'Romance': 'd', 'Personality': 'd5'},
+    {'Family': 'd5', 'Motivation': 'd7', 'Goals': 'd7', 'Friends': [],
+        'Enemies': ['d2'], 'Romance': 'd6', 'Personality': 'd5'},
     {'Family': 'd1', 'Motivation': 'd5', 'Goals': 'd9', 'Friends': [],
         'Enemies': [], 'Romance': 'd3', 'Personality': 'd3'},
     {'Family': 'd', 'Motivation': 'd8', 'Goals': 'd9', 'Friends': [],

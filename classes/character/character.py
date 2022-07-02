@@ -1,144 +1,87 @@
 import random
-from re import I
+from random_gen.dises import get_random_d10, get_random_d6
 
 from classes.character.skills import Skills
+from classes.character.stats import Stats
+from classes.weapons.melee_weapon import MeleeWeapon
 from character_data.skill_examples import skill_examples
 
 
-class Character:
-    def __init__(self, name, role, intel, ref, dex, tech, cool, will, lusk, move, body, emp, extra_skills) -> None:
+class Actor:
+    def __init__(self, name, hit_points=20, max_hit_points=20):
         self._name = name
+        self._hit_points = hit_points
+        self._max_hit_points = max_hit_points
+
+
+hit_points_dict = {
+    "2": {
+        "initial_hit_points": "10",
+        "injury_threshold": "5",
+        "death_threshold": "2",
+    },
+    "3": {
+        "initial_hit_points": "15",
+        "injury_threshold": "8",
+        "death_threshold": "3",
+    }, "4": {
+        "initial_hit_points": "20",
+        "injury_threshold": "10",
+        "death_threshold": "4",
+    }, "5": {
+        "initial_hit_points": "25",
+        "injury_threshold": "13",
+        "death_threshold": "5",
+    }, "6": {
+        "initial_hit_points": "30",
+        "injury_threshold": "15",
+        "death_threshold": "6",
+    }, "7": {
+        "initial_hit_points": "35",
+        "injury_threshold": "18",
+        "death_threshold": "7",
+    }, "8": {
+        "initial_hit_points": "40",
+        "injury_threshold": "20",
+        "death_threshold": "8",
+    }, "9": {
+        "initial_hit_points": "45",
+        "injury_threshold": "23",
+        "death_threshold": "9",
+    }, "10": {
+        "initial_hit_points": "50",
+        "injury_threshold": "25",
+        "death_threshold": "10",
+    }
+}
+
+
+class Character(Actor):
+    def __init__(self, name, role, stats: Stats, skills: Skills) -> None:
+        super().__init__(name)
         self._role = role
-        self._intel = intel
-        self._ref = ref
-        self._dex = dex
-        self._tech = tech
-        self._cool = cool
-        self._will = will
-        self._lusk = lusk
-        self._move = move
-        self._body = body
-        self._emp = emp
+        self._skills = skills
+        self._stats = stats
+        self._hit_points = hit_points_dict[f'{self._stats._body}']['initial_hit_points']
+        self._max_hit_points = hit_points_dict[f'{self._stats._body}']['initial_hit_points']
+        self._weapon = None
 
-        self.Skills = Skills(
-            # Fighting Skills
-            _brawling=self._dex + extra_skills['brawling'],
-            _evasion=self._dex + extra_skills['evasion'],
-            _marksmanship=self._ref + extra_skills['marksmanship'],
-            _melee_weapon=self._dex + extra_skills['melee_weapon'],
-            # Awareness Skills
-            _concentration=self._will + extra_skills['concentration'],
-            _perception=self._intel + extra_skills['perception'],
-            _tracking=self._intel + extra_skills['tracking'],
-            # Control Skills
-            _driving=self._ref + extra_skills['driving'],
-            # Body Skills
-            _athletics=self._dex + extra_skills['athletics'],
-            _stealth=self._emp + extra_skills['stealth'],
-            # Technique Skills
-            _basic_tech=self._tech + extra_skills['basic_tech'],
-            _cybertech=self._tech + extra_skills['cybertech'],
-            _first_aid=self._tech + extra_skills['first_aid'],
-            # Performance_skills
-            _play_instrument=self._emp + extra_skills['play_instrument'],
-            # Education Skills
-            _education=self._intel + extra_skills['education'],
-            _local_expert=self._intel + extra_skills['local_expert'],
-            # Social Skills
-            _bribery=self._cool + extra_skills['bribery'],
-            _conversation=self._emp + extra_skills['conversation'],
-            _human_perception=self._emp + extra_skills['human_perception'],
-            _interrogation=self._cool + extra_skills['interrogation'],
-            _persuasion=self._cool + extra_skills['persuasion'],
-        )
+    def set_weapon(self, weapon: MeleeWeapon):
+        self._weapon = weapon
 
-    # getter methods
+    def melee_attack(
+        self,
+        enemy,
+        dice: int,
+        dice_enemy: int,
+        damange_dice: int,
+    ) -> int:
+        character_damage = self._stats._dex + self._skills._melee_weapon + dice
+        enemy_defence = enemy._stats._dex + enemy._skills._evasion + dice_enemy
 
-    def get_name(self):
-        return self._name
+        print('#####: ', character_damage, enemy_defence)
 
-    def get_role(self):
-        return self._role
-
-    def get_intel(self):
-        return self._intel
-
-    def get_ref(self):
-        return self._ref
-
-    def get_dex(self):
-        return self._dex
-
-    def get_tech(self):
-        return self._tech
-
-    def get_cool(self):
-        return self._cool
-
-    def get_will(self):
-        return self._will
-
-    def get_lusk(self):
-        return self._lusk
-
-    def get_move(self):
-        return self._move
-
-    def get_body(self):
-        return self._body
-
-    def get_emp(self):
-        return self._emp
-
-# setter method
-
-    def set_name(self, new_name):
-        self._name = new_name
-        return self._name
-
-    def set_role(self, new_role):
-        self._role = new_role
-        return self._role
-
-    def set_intel(self, new_intel):
-        self._intel = new_intel
-        return self._intel
-
-    def set_ref(self, new_ref):
-        self._ref = new_ref
-        return self._ref
-
-    def set_dex(self, new_dex):
-        self._dex = new_dex
-        return self._dex
-
-    def set_tech(self, new_tech):
-        self._tech = new_tech
-        return self._tech
-
-    def set_cool(self, new_cool):
-        self._cool = new_cool
-        return self._cool
-
-    def set_will(self, new_will):
-        self._will = new_will
-        return self._will
-
-    def set_lusk(self, new_lusk):
-        self._lusk = new_lusk
-        return self._lusk
-
-    def set_move(self, new_move):
-        self._move = new_move
-        return self._move
-
-    def set_body(self, new_body):
-        self._body = new_body
-        return self._body
-
-    def set_emp(self, new_emp):
-        self._emp = new_emp
-        return self._emp
+        return damange_dice if character_damage > enemy_defence else 0
 
 
 if __name__ == '__main__':
@@ -165,5 +108,4 @@ if __name__ == '__main__':
         'Тело', security_guard.get_body(), '\n',
         'Эмпатия', security_guard.get_emp(), '\n',
         'brawling', security_guard.Skills.get_brawling(), '\n',
-
     )

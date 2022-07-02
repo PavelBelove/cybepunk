@@ -81,4 +81,4 @@ if __name__ == '__main__':
     test1 = CreateLifePath.create(life_path_exemples[5])
     test2 = CreateLifePath.create()
     print(test1.__dict__)
-    print(test2.__dict__)
+    # print(test2.__dict__)

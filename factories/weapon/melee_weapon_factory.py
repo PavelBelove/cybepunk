@@ -26,11 +26,11 @@ class Machete(MeleeWeapon):
         super().__init__(dict)
 
 
-class CreateMeleeWeapon():
+class MeleeWeaponFactory():
     def __init__(self) -> None:
         pass
 
-    def create(weapon_type: MeleeWeaponType):
+    def create(self, weapon_type: MeleeWeaponType):
         factory_dict = {
             MeleeWeaponType.SMALL_KNIFE: SmallKnife,
             MeleeWeaponType.KNIFE: Knife,
