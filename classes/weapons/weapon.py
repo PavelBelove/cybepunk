@@ -1,15 +1,27 @@
 from enum import Enum
+import uuid
+
+
+class Weight(Enum):
+    light = 1
+    medium = 2
+    heavy = 3
+
+
+class Item():
+    def __init__(self, name, mass: Weight = Weight.medium):
+        self.id = uuid.uuid4()
+        self.name = name
+        self.mass = mass
 
 
 class WeaponType(Enum):
     pass
 
 
-class Weapon():
+class Weapon(Item):
     def __init__(self, dict):
-        self.id = next(dict['id'])
-        self.name = dict['name']
-        self.mass = dict['mass']
+        super().__item__(dict['name'], 2)
         # self.damage = dict['damage']
         self.hands = dict['hands']
         self.price = dict['price']
