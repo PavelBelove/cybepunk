@@ -1,27 +1,14 @@
-from random import randint
-
-from factories.weapon.melee_weapon_factory import MeleeWeaponFactory, MeleeWeaponType
+from factories.weapon.melee_weapon_factory import MeleeWeaponFactory
 from classes.character.character import Character
-from classes.character.stats import Stats
 from classes.character.skills import Skills
-from character_data import life_path_rus, skill_examples
+from character_data import skill_examples
 from factories.stats_factory import StatsFactory
-
-
-def _get_random_d10(upperValue):
-    return randint(1, 11)
-
-
-def _get_random_d6(upperValue):
-    return randint(1, 11)
 
 
 class CharacterFactory:
     def __init__(self, stats_factory: StatsFactory, weapon_factory: MeleeWeaponFactory):
         self._stats_factory = stats_factory
         self._weapon_factory = weapon_factory
-
-        # For Rocker
 
     def _create_skills(self, stats):
         skills = Skills(
@@ -97,7 +84,7 @@ class CharacterFactory:
             # skills if skills else,
         )
 
-        weapon = self._weapon_factory.create(MeleeWeaponType.SMALL_KNIFE)
+        weapons = self._weapon_factory.createFixerWeapons()
 
         fixer.set_weapon(weapon)
         return fixer

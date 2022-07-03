@@ -3,8 +3,21 @@ from random_gen.dises import get_random_d10, get_random_d6
 
 from classes.character.skills import Skills
 from classes.character.stats import Stats
-from classes.weapons.melee_weapon import MeleeWeapon
+from classes.items.melee_weapon import MeleeWeapon
 from character_data.skill_examples import skill_examples
+
+
+class Role(Enum):
+    FIXER = 'FIXER'
+    ROCKERBOY = 'ROCKERBOY'
+    SOLO = 'SOLO'
+    NETRUNNER = 'NETRUNNER'
+    NOMAD = 'NOMAD'
+    TECH = 'TECH'
+    COP = 'COP'
+    CORPORATE = 'CORPORATE'
+    MEDIC = 'MEDIC'
+    JOUNALIST = 'JOUNALIST'
 
 
 class Actor:
@@ -64,12 +77,14 @@ class Character(Actor):
         self._stats = stats
         self._hit_points = hit_points_dict[f'{self._stats._body}']['initial_hit_points']
         self._max_hit_points = hit_points_dict[f'{self._stats._body}']['initial_hit_points']
-        self._weapon = None
+        self._left_hand_weapon = None
+        self._right_hand_weapon = None
+        self._inventory = []
 
     def set_weapon(self, weapon: MeleeWeapon):
-        self._weapon = weapon
+        self._left_hand_weapon = weapon
 
-    def melee_attack(
+    def attack(
         self,
         enemy,
         dice: int,

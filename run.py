@@ -27,7 +27,7 @@ while(int(enemy._hit_points) > 0):  # TODO: fixme str
     d10_1, d10_2, d6 = get_random_d10(), get_random_d10(), get_random_d6()
     print(f'your dises is {d10_1}, {d10_2}, {d6}')
 
-    damage = character.melee_attack(
+    damage = character.attack(
         enemy,
         d10_1,
         d10_2,

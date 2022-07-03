@@ -1,6 +1,6 @@
 
 from enum import Enum
-from classes.weapons.weapon import Weapon, WeaponType
+from classes.items.weapon import Weapon, WeaponType
 
 # _________________
 import random

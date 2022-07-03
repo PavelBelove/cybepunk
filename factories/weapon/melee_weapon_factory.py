@@ -1,14 +1,13 @@
-from calendar import c
 from enum import Enum
 
-from classes.weapons.melee_weapon import MeleeWeapon, knifes_data
-# from random_gen.id_generator import unique_sequence
+from classes.items.melee_weapon import MeleeWeapon, knifes_data
 
 
 class MeleeWeaponType(Enum):
     SMALL_KNIFE = 0
     KNIFE = 1
     MACHETE = 2
+    SLICE_AND_DICE = 3
 
 
 class SmallKnife(MeleeWeapon):
@@ -31,17 +30,17 @@ class MeleeWeaponFactory():
         pass
 
     def create(self, weapon_type: MeleeWeaponType):
-        factory_dict = {
+        melee_weapon_classes = {
             MeleeWeaponType.SMALL_KNIFE: SmallKnife,
             MeleeWeaponType.KNIFE: Knife,
             MeleeWeaponType.MACHETE: Machete,
         }
-        # print(factory_dict[MeleeWeaponType.KNIFE])
-        return factory_dict[weapon_type]()
+        # print(factory[MeleeWeaponType.KNIFE])
+        return melee_weapon_classes[weapon_type]()
 
 
 if __name__ == '__main__':
     for i in MeleeWeaponType:
-        weapon = CreateMeleeWeapon.create(i)
+        weapon = MeleeWeaponFactory.create(i)
 
         print(f'{weapon.name}, id {weapon.id} ')

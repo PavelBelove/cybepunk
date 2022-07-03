@@ -1,4 +1,4 @@
-# cybepunk
-
+# Cybepunk
 
 Console utility for playing cyberpunk
+
