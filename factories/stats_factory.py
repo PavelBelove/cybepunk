@@ -1,4 +1,4 @@
-from character_data.stat_presets import stat_presets
+from character_data.stats.stat_presets import stat_presets
 from classes.character.stats import Stats
 
 

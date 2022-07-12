@@ -9,6 +9,7 @@ class Ammo():
 
 
 class Guns(Weapon):
-    def __init__(self, ammo, gun_range):
+    def __init__(self, gun_range, ammo):
+        super().__init__(gun_range)
         self.ammo = ammo
-        self.gun_range = gun_range
+        # self.gun_range = gun_range

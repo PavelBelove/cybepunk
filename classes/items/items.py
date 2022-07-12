@@ -3,6 +3,7 @@ import uuid
 
 
 class Weight(Enum):
+    implant = 0
     light = 1
     medium = 2
     heavy = 3

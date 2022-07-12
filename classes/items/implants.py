@@ -1,20 +1,16 @@
-from enum import Enum
 import uuid
+
 from classes.items.items import Item, Weight
 
 
-class WeaponType(Enum):
-    pass
-
-
-class Weapon(Item):
+class Implant(Item):
     def __init__(self, dict):
-        super().__init__(dict['name'], dict['mass'])
+        super().__init__(dict['name'], mass=Weight.implant)
         self.id = uuid.uuid4()
         # self.name = dict['name']
         # self.mass = dict['mass']
         # self.damage = dict['damage']
-        self.hands = dict['hands']
+        self.slot = dict['slot']
         self.price = dict['price']
         # self.quality = dict['quality']
         self.is_hidden = dict['is_hidden']

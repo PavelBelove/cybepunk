@@ -1,6 +1,7 @@
 from enum import Enum
 
-from classes.items.melee_weapon import MeleeWeapon, knifes_data
+from classes.items.melee_weapon import MeleeWeapon
+from character_data.weapons.melee_weapon import knifes_data
 
 
 class MeleeWeaponType(Enum):
@@ -25,6 +26,11 @@ class Machete(MeleeWeapon):
         super().__init__(dict)
 
 
+class SliceAndDise(MeleeWeapon):
+    def __init__(self, dict=knifes_data['slise_and_dise']):
+        super().__init__(dict)
+
+
 class MeleeWeaponFactory():
     def __init__(self) -> None:
         pass
@@ -34,13 +40,20 @@ class MeleeWeaponFactory():
             MeleeWeaponType.SMALL_KNIFE: SmallKnife,
             MeleeWeaponType.KNIFE: Knife,
             MeleeWeaponType.MACHETE: Machete,
+            MeleeWeaponType.SLICE_AND_DICE: SliceAndDise
         }
-        # print(factory[MeleeWeaponType.KNIFE])
+        # print(melee_weapon_classes[weapon_type])
         return melee_weapon_classes[weapon_type]()
 
 
 if __name__ == '__main__':
-    for i in MeleeWeaponType:
-        weapon = MeleeWeaponFactory.create(i)
+    # for i in MeleeWeaponType:
+    #     weapon = MeleeWeaponFactory.create(i)
 
-        print(f'{weapon.name}, id {weapon.id} ')
+    #     print(i)
+    # print(f'{weapon.name}, id {weapon.id} ')
+
+    melee_weapon_factory = MeleeWeaponFactory
+    weapons = melee_weapon_factory.create(
+        weapons, MeleeWeaponType.SLICE_AND_DICE)
+    print()

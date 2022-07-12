@@ -1,14 +1,19 @@
-from factories.weapon.melee_weapon_factory import MeleeWeaponFactory
+# from factories.weapon.weapon_factory import WeaponFactory
 from classes.character.character import Character
 from classes.character.skills import Skills
 from character_data import skill_examples
+from factories.character.life_path_factory import LifePathFactory
 from factories.stats_factory import StatsFactory
+from factories.weapon.weapon_factory import WeaponFactory
+from factories.weapon.melee_weapon_factory import MeleeWeaponFactory, MeleeWeaponType
+from factories.weapon.guns_factory import GunFactory, GunType
 
 
 class CharacterFactory:
-    def __init__(self, stats_factory: StatsFactory, weapon_factory: MeleeWeaponFactory):
+    def __init__(self, stats_factory: StatsFactory, life_path_factory: LifePathFactory, weapon_factory: WeaponFactory):
         self._stats_factory = stats_factory
         self._weapon_factory = weapon_factory
+        self._life_path_factory = life_path_factory
 
     def _create_skills(self, stats):
         skills = Skills(
@@ -65,26 +70,51 @@ class CharacterFactory:
         )
         return skills
 
-    def create_character(self, name, role, stats):
+    def create_character(self, name, role, stats, life_path):
         return Character(
             name,
             role,
             stats,
+
             self._create_skills(
-                stats if stats else skill_examples.skill_examples['FIXER'])
+                stats if stats else skill_examples.skill_examples['FIXER']),
+            life_path,
         )
 
-    def create_random_fixer(self, name, stats=None):
-        stats = stats if stats != None else self._stats_factory._create_preset_stats('FIXER',
-                                                                                     1)
+    def create_random_fixer(self, name, stats=None, life_path=None):
+        stats = stats if stats is not None else self._stats_factory._create_preset_stats('FIXER',
+                                                                                         1)
+        life_path = life_path if life_path is not None else self._life_path_factory.create()
         fixer = self.create_character(
             name,
             'Fixer',
             stats,
+            life_path,
             # skills if skills else,
         )
+        fixer._inventory['slice_and_dice'] = self._weapon_factory.create(
+            MeleeWeaponType.SLICE_AND_DICE)
+        fixer._inventory['heavy_pistol'] = self._weapon_factory.create(
+            GunType.HEAVY_PISTOL)
 
-        weapons = self._weapon_factory.createFixerWeapons()
-
-        fixer.set_weapon(weapon)
+        fixer.set_weapon(
+            fixer._inventory['heavy_pistol'], fixer._inventory['slice_and_dice'])
         return fixer
+
+
+if __name__ == '__main__':
+    stats_factory = StatsFactory()
+    melee_weapon_factory = MeleeWeaponFactory()
+    life_path_factory = LifePathFactory()
+    gun_factory = GunFactory()
+    weapon_factory = WeaponFactory(melee_weapon_factory, gun_factory)
+    character_factory = CharacterFactory(
+        stats_factory, life_path_factory, weapon_factory)
+
+    fixer = character_factory.create_random_fixer('name')
+    # print(fixer.__dict__.keys())
+    print('STATS:    ', fixer._stats.__dict__)
+    print('SKILLS:   ', fixer._skills.__dict__)
+    print('LIFE PATH:   ', fixer._life_path.__dict__)
+
+    print(fixer._right_hand_weapon.__dict__)

@@ -90,3 +90,29 @@ class Personality(Enum):
     d8 = 'd8',
     d9 = 'd9',
     d10 = 'd10'
+
+
+class LifePath():
+    def __init__(
+        self,
+        family=None,
+        motivation=None,
+        goals=None,
+        friends=[],
+        enemies=[],
+        romanse=None,
+        personality=None,
+    ) -> None:
+        self.family = family
+        self.motivation = motivation
+        self.goals = goals
+        self.friends = friends
+        self.enemies = enemies
+        self.romanse = romanse
+        self.personality = personality
+
+    def set_life_path(life_path):
+        pass
+
+    def generate_random_life_path():
+        pass

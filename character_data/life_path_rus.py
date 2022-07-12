@@ -1,4 +1,4 @@
-from classes.life_path import Family, Motivation, Goals, Friends, Enemies, Romance, Personality
+from classes.character.life_path_enums import Family, Motivation, Goals, Friends, Enemies, Romance, Personality
 
 FAMILY = {
     Family.d1: 'Ваша семья потеряла всё из-за предательства.',

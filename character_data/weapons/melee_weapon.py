@@ -36,5 +36,17 @@ knifes_data = {
         'is_hidden': False,
         'dices': 3,
         'dice_type': 6,
+    },
+    'slise_and_dise': {
+        'id': uuid.uuid4(),
+        'name': 'slise_and_dise',
+        'mass': 'implant',
+        # 'damage': '',
+        'hands': 1,
+        'price': 20,
+        # 'quality': '',
+        'is_hidden': False,
+        'dices': 2,
+        'dice_type': 6,
     }
 }

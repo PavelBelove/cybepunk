@@ -2,10 +2,15 @@ from random import choice, randint
 
 
 from character_data.life_path_rus import FAMILY, MOTIVATION, GOALS, FRIENDS, ENEMIES, ROMANCE, PERSONALITY, life_path_exemples
-from classes.life_path import Family, Motivation, Goals, Friends, Enemies, Romance, Personality
+from classes.character.life_path_enums import Family, Motivation, Goals, Friends, Enemies, Romance, Personality
 
 
 class LifePath():
+    def __init__(self) -> None:
+        pass
+
+
+class PresetLifePath(LifePath):
     def __init__(self, life_path_dict: dict) -> None:
         self.Family = FAMILY[Family[life_path_dict['Family']]]
         self.Motivation = MOTIVATION[Motivation[life_path_dict['Motivation']]]
@@ -22,7 +27,7 @@ class LifePath():
             self.Enemies.append(ENEMIES[Enemies[i]])
 
 
-class RandomLifePath():
+class RandomLifePath(LifePath):
     def __init__(self) -> None:
         self.Family = FAMILY[choice(list(Family))]
         self.Motivation = MOTIVATION[choice(list(Motivation))]
@@ -39,17 +44,6 @@ class RandomLifePath():
         for i in range(1, randint(1, 11)):
             if i > 5:
                 self.Enemies.append(ENEMIES[choice(list(Enemies))])
-
-
-class CreateLifePath():
-    def __init__(self) -> None:
-        pass
-
-    def create(life_path_dict={}):
-        if len(life_path_dict):
-            return LifePath(life_path_dict)
-        else:
-            return RandomLifePath()
 
 
 # class LifePathDictGenerator():
@@ -69,16 +63,3 @@ class CreateLifePath():
 #         for i in range(1, randint(1, 11)):
 #             if i > 5:
 #                 self.Enemies.append(choice(list(Enemies)).value[0])
-
-
-if __name__ == '__main__':
-    # lst = []
-    # for i in range(20):
-    #     test = LifePathDictGenerator()
-    #     lst.append(test.__dict__)
-    # print(lst)
-
-    test1 = CreateLifePath.create(life_path_exemples[5])
-    test2 = CreateLifePath.create()
-    print(test1.__dict__)
-    # print(test2.__dict__)
