@@ -1,19 +1,17 @@
-from django.urls import path, include
+from django.urls import path
 from django.conf.urls import *
-
-from backend.api.character.views import CharacterView, SkillsView, StatsView, LifePathView
-
+from character.views import index, CharacterView, SkillsView, StatsView, LifePathView
 
 app_name = 'character'
 urlpatterns = [
-    # path('character/', CharacterView.as_view()),
-    # path('stats/', StatsView.as_view()),
-    # path('skills/', SkillsView.as_view()),
-    # path('life_path/', LifePathView.as_view()),
+    path('', index, name="index"),
+    path('api/v1/character/character/', CharacterView.as_view()),
+    path('api/v1/character/stats/', StatsView.as_view()),
+    path('api/v1/character/skills/', SkillsView.as_view()),
+    path('api/v1/character/life_path/', LifePathView.as_view()),
 
-    url(r'^character/$', CharacterView, name='character'),
-    url(r'^stats/$', StatsView, name='stats'),
-    url(r'^skills/$', SkillsView, name='skills'),
-    url(r'^life_path/$', LifePathView, name='life_path'),
-
+    # url(r'^character/$', CharacterView, name='character'),
+    # url(r'^stats/$', StatsView, name='stats'),
+    # url(r'^skills/$', SkillsView, name='skills'),
+    # url(r'^life_path/$', LifePathView, name='life_path'),
 ]

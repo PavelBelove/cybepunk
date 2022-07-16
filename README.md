@@ -1,7 +1,7 @@
 # Cybepunk
 
-Console utility for playing cyberpunk
+API for playing cyberpunk
 
 
 Подгрузка пути 
-export PYTHONPATH="${PYTHONPATH}:/home/pavel/cybepunk/"
+export PYTHONPATH="${PYTHONPATH}:/home/pavel/cyberpunk/"

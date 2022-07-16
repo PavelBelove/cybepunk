@@ -3,20 +3,15 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-# Create your models here.
 
-
-class StatsModel(models.Model):
+class Stats(models.Model):
     u'''Model Class'''
-    class Meta:
-        app_label = 'stats'
-    # class Meta:
-    #     u'''Model Meta'''
-    #     verbose_name = "Статы"
-    #     verbose_name_plural = "Статы"
 
-    verbose_name = models.CharField(
-        verbose_name='ID', db_index=True, max_length=64)
+    class Meta:
+        u'''Model Meta'''
+        verbose_name = "Статы"
+        verbose_name_plural = "Статы"
+
     intel = models.IntegerField(verbose_name='intel', default=5)
     ref = models.IntegerField(verbose_name='ref', default=5)
     dex = models.IntegerField(verbose_name='dex', default=5)
@@ -31,7 +26,6 @@ class StatsModel(models.Model):
     def as_json(self):
         u'''Returns Model as JSON'''
         return dict(
-            stats_id=self.stats_id,
             intel=self.intel,
             ref=self.ref,
             dex=self.dex,
@@ -44,20 +38,17 @@ class StatsModel(models.Model):
             emp=self.emp,
         )
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
 
-class SkillsModel(models.Model):
+class Skills(models.Model):
     u'''Model Class'''
     class Meta:
         u'''Model Meta'''
-        app_label = 'skills'
-    #     verbose_name = "Навык"
-    #     verbose_name_plural = "Навыки"
+        verbose_name = "Навык"
+        verbose_name_plural = "Навыки"
 
-    skills_id = models.CharField(
-        verbose_name='ID', db_index=True, max_length=64)
     brawling = models.IntegerField(verbose_name='brawling', default=5)
     evasion = models.IntegerField(verbose_name='evasion', default=5)
     marksmanship = models.IntegerField(verbose_name='marksmanship', default=5)
@@ -115,14 +106,14 @@ class SkillsModel(models.Model):
         return self.name
 
 
-class LifePathModel(models.Model):
+class LifePath(models.Model):
     u'''Model Class'''
+
     class Meta:
         u'''Model Meta'''
-        app_label = 'life_path'
 
-    #     verbose_name = "Жизненный путь"
-    #     verbose_name_plural = "Жизненные пути"
+        verbose_name = "Жизненный путь"
+        verbose_name_plural = "Жизненные пути"
 
     FAMILY = (
         (1, 'Ваша семья потеряла всё из-за предательства.'),
@@ -215,22 +206,20 @@ class LifePathModel(models.Model):
         (10, 'Дружелюбный и общительный'),
     )
 
-    life_path_id = models.CharField(
-        verbose_name='ID', db_index=True, max_length=64)
-    family = models.CharField(verbose_name='family',
-                              max_length=2048, choices=FAMILY)
-    motivation = models.CharField(
-        verbose_name='motivation', max_length=2048, choices=MOTIVATION)
-    goals = models.CharField(verbose_name='goals',
-                             max_length=2048, choices=GOALS)
-    friends = models.CharField(
-        verbose_name='friends', max_length=2048, choices=FRIENDS)
-    enemies = models.CharField(
-        verbose_name='enemies', max_length=2048, choices=ENEMIES)
-    romance = models.CharField(
-        verbose_name='romance', max_length=2048, choices=ROMANCE)
-    personality = models.CharField(
-        verbose_name='personality', max_length=2048, choices=PERSONALITY)
+    family = models.IntegerField(verbose_name='family',
+                                 choices=FAMILY)
+    motivation = models.IntegerField(
+        verbose_name='motivation', choices=MOTIVATION)
+    goals = models.IntegerField(verbose_name='goals',
+                                choices=GOALS)
+    friends = models.IntegerField(
+        verbose_name='friends', choices=FRIENDS)
+    enemies = models.IntegerField(
+        verbose_name='enemies', choices=ENEMIES)
+    romance = models.IntegerField(
+        verbose_name='romance', choices=ROMANCE)
+    personality = models.IntegerField(
+        verbose_name='personality', choices=PERSONALITY)
 
     def as_json(self):
         u'''Returns Model as JSON'''
@@ -249,14 +238,12 @@ class LifePathModel(models.Model):
         return self.name
 
 
-class CharacterModel(models.Model):
+class Character(models.Model):
     class Meta:
         u'''Model Meta'''
-        app_label = 'character'
+        verbose_name = "Персонаж"
+        verbose_name_plural = "Персонажи"
 
-    id = models.CharField(verbose_name='ID', db_index=True, max_length=64)
-    user = models.ForeignKey(User, verbose_name='user',
-                             on_delete=models.CASCADE)
     ROLES = (
         (1, 'FIXER'),
         (2, 'ROCKERBOY'),
@@ -269,13 +256,15 @@ class CharacterModel(models.Model):
         (9, 'MEDIC'),
         (10, 'JOUNALIST'),
     )
+    user = models.ForeignKey(User, verbose_name='user',
+                             on_delete=models.CASCADE)
     role = models.IntegerField(verbose_name='role', choices=ROLES)
     skills = models.ForeignKey(
-        SkillsModel, verbose_name='skills', on_delete=models.CASCADE)
-    life_path = models.ForeignKey(LifePathModel,
+        'Skills', verbose_name='skills', on_delete=models.CASCADE)
+    life_path = models.ForeignKey('LifePath',
                                   verbose_name='life_path', on_delete=models.CASCADE)
     stats = models.ForeignKey(
-        StatsModel, verbose_name='stats', on_delete=models.CASCADE)
+        'Stats', verbose_name='stats', on_delete=models.CASCADE)
     hit_points = models.CharField(verbose_name='hit_points', max_length=64)
 
     max_hit_points = models.CharField(
