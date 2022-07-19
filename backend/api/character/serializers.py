@@ -1,25 +1,26 @@
 from rest_framework import serializers
 
-from rest_framework.serializers import ModelSerializer, ImageField
-from character.models import Character, Stats, Skills, LifePath
+from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer
+from character.models import Character, Stats, Skills, LifePath, Weapon
 
 
 class StatsSerialiser(ModelSerializer):
     class Meta:
         model = Stats
-        fields = (
-            'stats_id',
-            'intel',
-            'ref',
-            'dex',
-            'tech',
-            'cool',
-            'will',
-            'lusk',
-            'move',
-            'body',
-            'emp',
-        )
+        fields = '__all__'
+        # (
+        #     'stats_id',
+        #     'intel',
+        #     'ref',
+        #     'dex',
+        #     'tech',
+        #     'cool',
+        #     'will',
+        #     'lusk',
+        #     'move',
+        #     'body',
+        #     'emp',
+        # )
 
 
 class SkillsSerialiser(ModelSerializer):
@@ -31,6 +32,12 @@ class SkillsSerialiser(ModelSerializer):
 class LifePathSerialiser(ModelSerializer):
     class Meta:
         model = LifePath
+        fields = '__all__'
+
+
+class WeaponSerialiser(ModelSerializer):
+    class Meta:
+        model = Weapon
         fields = '__all__'
 
 

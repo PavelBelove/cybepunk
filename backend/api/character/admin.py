@@ -2,7 +2,7 @@
 from django.contrib import admin
 
 # from . import models
-from character.models import Character, Stats, Skills, LifePath
+from character.models import Character, Stats, Skills, LifePath, Weapon
 
 # Register your models here.
 
@@ -121,7 +121,14 @@ class LifePathAdmin(admin.ModelAdmin):
     # ]
 
 
+class WeaponAdmin(admin.ModelAdmin):
+    fields = (
+        '__all__'
+    )
+
+
 admin.site.register(Stats, StatsAdmin)
 admin.site.register(Skills, SkillsAdmin)
 admin.site.register(LifePath, LifePathAdmin)
+admin.site.register(Weapon, WeaponAdmin)
 admin.site.register(Character, CharacterAdmin)

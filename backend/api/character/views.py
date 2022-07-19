@@ -3,7 +3,8 @@ from django.http import HttpResponse
 from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet
 
-from character.serializers import CharacterSerialiser, LifePathSerialiser, SkillsSerialiser, StatsSerialiser
+from character.serializers import CharacterSerialiser, LifePathSerialiser, SkillsSerialiser, StatsSerialiser, WeaponSerialiser
+from character.models import Character, LifePath, Skills, Stats, Weapon
 
 
 # Create your views here.
@@ -46,17 +47,26 @@ def index(request):
 
 # create/update/delete/read
 # post/get/patch/delete
-class StatsView(generics.CreateAPIView):
-    serializer_class = StatsSerialiser()
+class StatsViewSet(ModelViewSet):
+    serializer_class = StatsSerialiser
+    queryset = Stats.objects.all()
 
 
-class SkillsView(generics.CreateAPIView):
-    serializer_class = SkillsSerialiser()
+class SkillsViewSet(ModelViewSet):
+    serializer_class = SkillsSerialiser
+    queryset = Skills.objects.all()
 
 
-class LifePathView(generics.CreateAPIView):
-    serializer_class = LifePathSerialiser()
+class LifePathViewSet(ModelViewSet):
+    serializer_class = LifePathSerialiser
+    queryset = LifePath.objects.all()
 
 
-class CharacterView(generics.CreateAPIView):
-    serializer_class = CharacterSerialiser()
+class WeaponViewSet(ModelViewSet):
+    serializer_class = WeaponSerialiser
+    queryset = Weapon.objects.all()
+
+
+class CharacterViewSet(ModelViewSet):
+    serializer_class = CharacterSerialiser
+    queryset = Character.objects.all()

@@ -102,8 +102,8 @@ class Skills(models.Model):
             persuasion=self.persuasion,
         )
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
 
 class LifePath(models.Model):
@@ -234,6 +234,89 @@ class LifePath(models.Model):
             personality=self.personality,
         )
 
+    # def __str__(self):
+    #     return self.name
+
+
+# class Ammo(models.Model):
+#     u'''Model Class'''
+
+#     class Meta:
+#         u'''Model Meta'''
+#         verbose_name = "Боеприпас"
+#         verbose_name_plural = "Боеприпасы"
+
+#     name = models.CharField(verbose_name='hit_points', max_length=64)
+#     price = models.IntegerField(verbose_name='intel', default=5)
+#     quantyty = models.IntegerField(verbose_name='intel', default=12)
+
+#     def as_json(self):
+#         u'''Returns Model as JSON'''
+#         return dict(
+#             name=self.name,
+#             price=self.price,
+#             quantyty=self.quantyty,
+#         )
+
+#     def __str__(self):
+#         return self.name
+
+
+class Weapon(models.Model):
+    u'''Model Class'''
+
+    class Meta:
+        u'''Model Meta'''
+        verbose_name = "Оружие"
+        verbose_name_plural = "Оружие"
+
+    MASS = (
+        (0, 'implant'),
+        (1, 'light'),
+        (2, 'medium'),
+        (3, 'heavy'),
+    )
+
+    HANDS = (
+        (0, 'implant'),
+        (1, 'one'),
+        (2, 'Two'),
+    )
+
+    DISES = zip(range(1, 5), range(1, 5))
+
+    DISES_TYPE = (
+        (0, 'd6'),
+        (1, 'd10'),
+    )
+
+    AMMO = zip(range(1, 30), range(1, 30))
+
+    name = models.CharField(verbose_name='hit_points', max_length=64)
+    mass = models.IntegerField(verbose_name='mass', choices=MASS)
+    hands = models.IntegerField(verbose_name='hands', choices=HANDS)
+    price = models.IntegerField(verbose_name='intel', default=50)
+    is_hidden = models.BooleanField(default=False)
+    dices = models.IntegerField(verbose_name='dises', choices=DISES)
+    dice_type = models.IntegerField(
+        verbose_name='dises_type', choices=DISES_TYPE)
+    ammo = models.IntegerField(verbose_name='ammo', choices=AMMO)
+    max_ammo = models.IntegerField(verbose_name='max_ammo', choices=AMMO)
+
+    def as_json(self):
+        u'''Returns Model as JSON'''
+        return dict(
+            name=self.name,
+            mass=self.mass,
+            hands=self.hands,
+            price=self.price,
+            is_hidden=self.is_hidden,
+            dices=self.dices,
+            dice_type=self.dice_type,
+            ammo=self.ammo,
+            max_ammo=self.max_ammo,
+        )
+
     def __str__(self):
         return self.name
 
@@ -258,6 +341,8 @@ class Character(models.Model):
     )
     user = models.ForeignKey(User, verbose_name='user',
                              on_delete=models.CASCADE)
+    name = models.CharField(verbose_name='hit_points',
+                            max_length=64, default='Punk')
     role = models.IntegerField(verbose_name='role', choices=ROLES)
     skills = models.ForeignKey(
         'Skills', verbose_name='skills', on_delete=models.CASCADE)
@@ -275,3 +360,19 @@ class Character(models.Model):
     right_hand_weapon = models.CharField(
         verbose_name='right_hand_weapon', max_length=64)
     inventory = models.CharField(verbose_name='inventory', max_length=64)
+
+    def as_json(self):
+        u'''Returns Model as JSON'''
+        return dict(
+            user=self.user,
+            name=self.name,
+            role=self.role,
+            skills=self.skills,
+            life_path=self.life_path,
+            stats=self.stats,
+            hit_points=self.hit_points,
+            max_hit_points=self.max_hit_points,
+            left_hand_weapon=self.left_hand_weapon,
+            right_hand_weapon=self.right_hand_weapon,
+            inventory=self.inventory,
+        )
