@@ -1,7 +1,7 @@
 from enum import Enum
 
 from classes.items.melee_weapon import MeleeWeapon
-from character_data.weapons.melee_weapon import knifes_data
+from character_data_out.weapons.melee_weapon import knifes_data
 
 
 class MeleeWeaponType(Enum):

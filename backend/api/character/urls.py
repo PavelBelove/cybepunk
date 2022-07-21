@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.conf.urls import *
 from rest_framework.routers import DefaultRouter
-from character.views import index, CharacterViewSet, SkillsViewSet, StatsViewSet, LifePathViewSet, WeaponViewSet
+from character.views import index, CharacterViewSet, SkillsViewSet, StatsViewSet, LifePathViewSet, WeaponViewSet, TestView
 
 router = DefaultRouter()
 router.register(r'character', CharacterViewSet)
@@ -21,6 +21,8 @@ urlpatterns = [
     #      LifePathViewSet.as_view({'get': 'list'})),
     # path('api/v1/character/weapon/',
     #      WeaponViewSet.as_view({'get': 'list'})),
+    path('api/v1/character/test/',
+         TestView.as_view()),
 
     path('api/v1/character/', include(router.urls)),
     path('api/v1/character/', include(router.urls)),

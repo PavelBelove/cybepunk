@@ -1,5 +1,5 @@
 from classes.character.life_path import LifePath, PresetLifePath, RandomLifePath
-from character_data.life_path_rus import life_path_exemples
+from character_data_out.life_path_rus import life_path_exemples
 
 
 class LifePathFactory():

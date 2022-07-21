@@ -6,7 +6,7 @@ from enum import Enum
 from classes.character.character import Role
 from classes.items.weapon import Weapon
 from classes.items.guns import Guns
-from character_data.weapons.guns import pistol_data, ammo_pistol_data
+from character_data_out.weapons.guns import pistol_data, ammo_pistol_data
 
 # Это такая модель пистолета
 

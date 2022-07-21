@@ -1,7 +1,7 @@
 from random import choice, randint
 
 
-from character_data.life_path_rus import FAMILY, MOTIVATION, GOALS, FRIENDS, ENEMIES, ROMANCE, PERSONALITY, life_path_exemples
+from character_data_out.life_path_rus import FAMILY, MOTIVATION, GOALS, FRIENDS, ENEMIES, ROMANCE, PERSONALITY, life_path_exemples
 from classes.character.life_path_enums import Family, Motivation, Goals, Friends, Enemies, Romance, Personality
 
 

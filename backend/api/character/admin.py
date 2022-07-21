@@ -123,7 +123,17 @@ class LifePathAdmin(admin.ModelAdmin):
 
 class WeaponAdmin(admin.ModelAdmin):
     fields = (
-        '__all__'
+        'user',
+        'name',
+        'role',
+        'skills',
+        'life_path',
+        'stats',
+        'hit_points',
+        'max_hit_points',
+        'left_hand_weapon',
+        'right_hand_weapon',
+        'inventory',
     )
 
 

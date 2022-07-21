@@ -1,4 +1,4 @@
-from character_data.stats.stat_presets import stat_presets
+from character_data_out.stats.stat_presets import STATS_PRESETS
 from classes.character.stats import Stats
 
 
@@ -7,8 +7,8 @@ class StatsFactory:
         pass
 
     def _create_preset_stats(self, role, dice_result) -> Stats:
-        role_stats_preset = stat_presets[role][dice_result if dice_result <=
-                                               6 else dice_result % 6]
+        role_stats_preset = STATS_PRESETS[role][dice_result if dice_result <=
+                                                6 else dice_result % 6]
         return Stats(
             intel=role_stats_preset["intelligence"],
             ref=role_stats_preset["reflexes"],
