@@ -3,8 +3,8 @@ import json
 from django.forms import model_to_dict
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from numpy import disp
-from requests import Response
+# from numpy import disp
+# from django.requests import Response
 
 from rest_framework import generics, status
 from rest_framework.views import APIView
@@ -13,8 +13,8 @@ from rest_framework.decorators import action
 
 from character.serializers import CharacterSerialiser, LifePathSerialiser, SkillsSerialiser, StatsSerialiser, WeaponSerialiser
 from character.models import Character, LifePath, Skills, Stats, Weapon
-from character.servises import preset_stats
-from character.character_data.stats.stat_presets import STATS_PRESETS
+from character.servises import preset_stats, preset_character
+from core.character_data.stats.stat_presets import STATS_PRESETS
 
 # Create your views here.
 
@@ -150,6 +150,17 @@ class WeaponViewSet(ModelViewSet):
 class CharacterViewSet(ModelViewSet):
     serializer_class = CharacterSerialiser
     queryset = Character.objects.all()
+
+    @action(methods=['POST'], detail=False)
+    def presets(self, request):
+        name = request.data["name"]
+        role = request.data["role"]
+        dispersion = request.data['dispersion'] if request.data['dispersion'] else 0
+
+        stats = preset_stats(role, dispersion=int(dispersion))
+        character = preset_character(name, role, dispersion=int(dispersion))
+
+        return JsonResponse(character)
 
 
 if __name__ == '__main__':
