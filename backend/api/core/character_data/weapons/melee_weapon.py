@@ -3,7 +3,7 @@ import uuid
 knifes_data = {
     'small_knife': {
         'id': uuid.uuid4(),
-        'name': 'small_knife',
+        'name': 'Small Knife',
         'mass': 'light',
         # 'damage': '',
         'hands': 1,
@@ -15,7 +15,7 @@ knifes_data = {
     },
     'knife': {
         'id': uuid.uuid4(),
-        'name': 'knife',
+        'name': 'Knife',
         'mass': 'light',
         # 'damage': '',
         'hands': 1,
@@ -39,7 +39,7 @@ knifes_data = {
     },
     'slise_and_dise': {
         'id': uuid.uuid4(),
-        'name': 'slise_and_dise',
+        'name': 'Slice And Dice',
         'mass': 'implant',
         # 'damage': '',
         'hands': 1,

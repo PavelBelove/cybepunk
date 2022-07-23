@@ -92,13 +92,20 @@ class CharacterFactory:
             life_path,
             # skills if skills else,
         )
-        fixer._inventory['slice_and_dice'] = self._weapon_factory.create(
-            MeleeWeaponType.SLICE_AND_DICE)
-        fixer._inventory['heavy_pistol'] = self._weapon_factory.create(
-            GunType.HEAVY_PISTOL)
+        
+        # FIXME: Fix DRY
+
+        slice_and_dice = self._weapon_factory.create(MeleeWeaponType.SLICE_AND_DICE)
+        heavy_pistol = self._weapon_factory.create(GunType.HEAVY_PISTOL)
+        
+        fixer._inventory[slice_and_dice.id] = slice_and_dice
+        fixer._inventory[heavy_pistol.id] = heavy_pistol
 
         fixer.set_weapon(
-            fixer._inventory['heavy_pistol'], fixer._inventory['slice_and_dice'])
+            slice_and_dice, 
+            heavy_pistol
+        )
+
         return fixer
 
 

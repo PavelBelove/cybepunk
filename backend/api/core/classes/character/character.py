@@ -78,9 +78,6 @@ class Character(Actor):
         character_damage = self._stats._dex + weapon_skills + sum(dices)
         enemy_defence = enemy._stats._dex + enemy._skills._evasion + dice_enemy
 
-        print('Your dices is', *dices)
-        print('#####: ', character_damage, enemy_defence)
-
         return character_damage if character_damage > enemy_defence else 0
     
     def as_json(self):
@@ -93,7 +90,7 @@ class Character(Actor):
             'max_hit_points': self._max_hit_points,
             'left_hand_weapon': self._left_hand_weapon.as_json(),
             'right_hand_weapon': self._right_hand_weapon.as_json(),
-            # TODO: 'inventory': self._inventory,
+            'inventory': [item.as_json() for item in self._inventory.values()],
         } 
 
 

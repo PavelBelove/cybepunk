@@ -24,6 +24,7 @@ class Weapon(Item):
     def as_json(self):
         return {
             'id': self.id,
+            'name': self.name,
             'hands': self.hands,
             'price': self.price,
             'is_hidden': self.is_hidden,

@@ -23,6 +23,7 @@ class HeavyPistol(Guns):
             pistol_dict=pistol_data['heavy_pistol'],
             ammo_dict=ammo_pistol_data['ammo_heavy_pistol']):
         super().__init__(pistol_dict, ammo_dict)
+        self.name = 'Heavy Pistol'
         self.ammo = ammo_dict
 
 

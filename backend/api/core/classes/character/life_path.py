@@ -11,76 +11,76 @@ class LifePath():
 
 class PresetLifePath(LifePath):
     def __init__(self, life_path_dict: dict) -> None:
-        self.Family = FAMILY[Family[life_path_dict['Family']]]
-        self.Motivation = MOTIVATION[Motivation[life_path_dict['Motivation']]]
-        self.Goals = GOALS[Goals[life_path_dict['Goals']]]
-        self.Friends = []
-        self.Enemies = []
-        self.Romance = ROMANCE[Romance[life_path_dict['Romance']]]
-        self.Personality = PERSONALITY[Personality[life_path_dict['Personality']]]
+        self.family = FAMILY[Family[life_path_dict['Family']]]
+        self.motivation = MOTIVATION[Motivation[life_path_dict['Motivation']]]
+        self.goals = GOALS[Goals[life_path_dict['Goals']]]
+        self.friends = []
+        self.enemies = []
+        self.romance = ROMANCE[Romance[life_path_dict['Romance']]]
+        self.personality = PERSONALITY[Personality[life_path_dict['Personality']]]
 
         for i in life_path_dict['Friends']:
-            self.Friends.append(FRIENDS[Friends[i]])
+            self.friends.append(FRIENDS[Friends[i]])
 
         for i in life_path_dict['Enemies']:
-            self.Enemies.append(ENEMIES[Enemies[i]])
+            self.enemies.append(ENEMIES[Enemies[i]])
 
         def as_json(self):
             return {
-                'Family': self.Family,
-                'Motivation': self.Motivation,
-                'Goals': self.Goals,
-                'Friends': self.Friends,
-                'Enemies': self.Enemies,
-                'Romance': self.Romance,
-                'Personality': self.Personality,
+                'Family': self.family,
+                'Motivation': self.motivation,
+                'Goals': self.goals,
+                'Friends': self.friends,
+                'Enemies': self.enemies,
+                'Romance': self.romance,
+                'Personality': self.personality,
             }
 
 
 class RandomLifePath(LifePath):
     def __init__(self) -> None:
-        self.Family = FAMILY[choice(list(Family))]
-        self.Motivation = MOTIVATION[choice(list(Motivation))]
-        self.Goals = GOALS[choice(list(Goals))]
-        self.Friends = []
-        self.Enemies = []
-        self.Romance = ROMANCE[choice(list(Romance))]
-        self.Personality = PERSONALITY[choice(list(Personality))]
+        self.family = FAMILY[choice(list(Family))]
+        self.motivation = MOTIVATION[choice(list(Motivation))]
+        self.goals = GOALS[choice(list(Goals))]
+        self.friends = []
+        self.enemies = []
+        self.romance = ROMANCE[choice(list(Romance))]
+        self.personality = PERSONALITY[choice(list(Personality))]
 
         for i in range(1, randint(1, 11)):
             if i > 7:
-                self.Friends.append(FRIENDS[choice(list(Friends))])
+                self.friends.append(FRIENDS[choice(list(Friends))])
 
         for i in range(1, randint(1, 11)):
             if i > 5:
-                self.Enemies.append(ENEMIES[choice(list(Enemies))])
+                self.enemies.append(ENEMIES[choice(list(Enemies))])
 
     def as_json(self):
         return {
-            'Family': self.Family,
-            'Motivation': self.Motivation,
-            'Goals': self.Goals,
-            'Friends': self.Friends,
-            'Enemies': self.Enemies,
-            'Romance': self.Romance,
-            'Personality': self.Personality,
+            'family': self.family,
+            'motivation': self.motivation,
+            'goals': self.goals,
+            'friends': self.friends,
+            'enemies': self.enemies,
+            'romance': self.romance,
+            'personality': self.personality,
         }
 
 
 # class LifePathDictGenerator():
 #     def __init__(self) -> None:
-#         self.Family = choice(list(Family)).value[0]
-#         self.Motivation = choice(list(Motivation)).value[0]
-#         self.Goals = choice(list(Goals)).value[0]
-#         self.Friends = []
-#         self.Enemies = []
-#         self.Romance = choice(list(Romance)).value[0]
-#         self.Personality = choice(list(Personality)).value[0]
+#         self.family = choice(list(Family)).value[0]
+#         self.motivation = choice(list(Motivation)).value[0]
+#         self.goals = choice(list(Goals)).value[0]
+#         self.friends = []
+#         self.enemies = []
+#         self.romance = choice(list(Romance)).value[0]
+#         self.personality = choice(list(Personality)).value[0]
 
 #         for i in range(1, randint(1, 11)):
 #             if i > 7:
-#                 self.Friends.append(choice(list(Friends)).value[0])
+#                 self.friends.append(choice(list(Friends)).value[0])
 
 #         for i in range(1, randint(1, 11)):
 #             if i > 5:
-#                 self.Enemies.append(choice(list(Enemies)).value[0])
+#                 self.enemies.append(choice(list(Enemies)).value[0])
