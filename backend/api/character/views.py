@@ -160,7 +160,7 @@ class CharacterViewSet(ModelViewSet):
         stats = preset_stats(role, dispersion=int(dispersion))
         character = preset_character(name, role, dispersion=int(dispersion))
 
-        return JsonResponse(character)
+        return JsonResponse(character, safe=False)
 
 
 if __name__ == '__main__':

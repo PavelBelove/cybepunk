@@ -82,6 +82,19 @@ class Character(Actor):
         print('#####: ', character_damage, enemy_defence)
 
         return character_damage if character_damage > enemy_defence else 0
+    
+    def as_json(self):
+        return {
+            'role': self._role,
+            'skills': self._skills.as_json(),
+            'life_path': self._life_path.as_json(),
+            'stats': self._stats.as_json(),
+            'hit_points': self._hit_points,
+            'max_hit_points': self._max_hit_points,
+            'left_hand_weapon': self._left_hand_weapon.as_json(),
+            'right_hand_weapon': self._right_hand_weapon.as_json(),
+            # TODO: 'inventory': self._inventory,
+        } 
 
 
 if __name__ == '__main__':

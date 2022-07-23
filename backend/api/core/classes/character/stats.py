@@ -10,3 +10,18 @@ class Stats():
         self._move = move
         self._body = body
         self._emp = emp
+
+    def as_json(self):
+        return {
+            'intel': self._intel, 
+            'ref': self._ref, 
+            'dex': self._dex, 
+            'tech': self._tech, 
+            'cool': self._cool, 
+            'will': self._will, 
+            'lusk': self._lusk, 
+            'move': self._move, 
+            'body': self._body, 
+            'emp': self._emp,
+        } 
+        

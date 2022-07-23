@@ -205,3 +205,28 @@ class Skills():
     def set_persuasion(self, new_persuasion):
         self._persuasion = new_persuasion
         return self._persuasion
+
+    def as_json(self):
+        return {
+            'brawling': self._brawling,
+            'evasion': self._evasion,
+            'marksmanship': self._marksmanship,
+            'melee_weapon': self._melee_weapon,
+            'concentration': self._concentration,
+            'perception': self._perception,
+            'tracking': self._tracking,
+            'driving': self._driving,
+            'athletics': self._athletics,
+            'stealth': self._stealth,
+            'basic_tech': self._basic_tech,
+            'cybertech': self._cybertech,
+            'first_aid': self._first_aid,
+            'play_instrument': self._play_instrument,
+            'education': self._education,
+            'local_expert': self._local_expert,
+            'bribery': self._bribery,
+            'conversation': self._conversation,
+            'human_perception': self._human_perception,
+            'interrogation': self._interrogation,
+            'persuasion': self._persuasion,
+        }

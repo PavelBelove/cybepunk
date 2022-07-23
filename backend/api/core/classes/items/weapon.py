@@ -20,3 +20,13 @@ class Weapon(Item):
         self.is_hidden = dict['is_hidden']
         self.dices = dict['dices']
         self.dice_type = dict['dice_type']
+    
+    def as_json(self):
+        return {
+            'id': self.id,
+            'hands': self.hands,
+            'price': self.price,
+            'is_hidden': self.is_hidden,
+            'dices': self.dices,
+            'dice_type': self.dice_type,
+        }

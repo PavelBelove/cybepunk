@@ -25,6 +25,17 @@ class PresetLifePath(LifePath):
         for i in life_path_dict['Enemies']:
             self.Enemies.append(ENEMIES[Enemies[i]])
 
+        def as_json(self):
+            return {
+                'Family': self.Family,
+                'Motivation': self.Motivation,
+                'Goals': self.Goals,
+                'Friends': self.Friends,
+                'Enemies': self.Enemies,
+                'Romance': self.Romance,
+                'Personality': self.Personality,
+            }
+
 
 class RandomLifePath(LifePath):
     def __init__(self) -> None:
@@ -43,6 +54,17 @@ class RandomLifePath(LifePath):
         for i in range(1, randint(1, 11)):
             if i > 5:
                 self.Enemies.append(ENEMIES[choice(list(Enemies))])
+
+    def as_json(self):
+        return {
+            'Family': self.Family,
+            'Motivation': self.Motivation,
+            'Goals': self.Goals,
+            'Friends': self.Friends,
+            'Enemies': self.Enemies,
+            'Romance': self.Romance,
+            'Personality': self.Personality,
+        }
 
 
 # class LifePathDictGenerator():
