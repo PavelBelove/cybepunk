@@ -7,8 +7,6 @@ class Implant(Item):
     def __init__(self, dict):
         super().__init__(dict['name'], mass=Weight.implant)
         self.id = uuid.uuid4()
-        # self.name = dict['name']
-        # self.mass = dict['mass']
         # self.damage = dict['damage']
         self.slot = dict['slot']
         self.price = dict['price']
