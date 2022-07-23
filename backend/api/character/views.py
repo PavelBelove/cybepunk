@@ -1,7 +1,9 @@
 from crypt import methods
+import json
 from django.forms import model_to_dict
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
+from numpy import disp
 from requests import Response
 
 from rest_framework import generics, status
@@ -61,6 +63,7 @@ class TestView(APIView):
         return response
 
     def post(self, request):
+        print(request["intel"])
         post_new = Stats.objects.create(
             intel=request.data['intel'],
             ref=request.data['ref'],
@@ -106,20 +109,27 @@ class StatsViewSet(ModelViewSet):
         # # , status=status.HTTP_400_BAD_REQUEST)
         # return Response(serializer.errors)
 
-        post_new = Stats.objects.create(
-            intel=request.data['intel'],
-            ref=request.data['ref'],
-            dex=request.data['dex'],
-            tech=request.data['tech'],
-            cool=request.data['cool'],
-            will=request.data['will'],
-            lusk=request.data['lusk'],
-            move=request.data['move'],
-            body=request.data['body'],
-            emp=request.data['emp'],
-        )
+        role = request.data["role"]
+        dispersion = request.data['dispersion'] if request.data['dispersion'] else 0
 
-        return JsonResponse({'post': model_to_dict(post_new)})
+        stats = preset_stats(role, dispersion=int(dispersion))
+
+        # post_new = Stats.objects.create(
+        #     intel=stats['intel'],
+        #     ref=stats['ref'],
+        #     dex=stats['dex'],
+        #     tech=stats['tech'],
+        #     cool=stats['cool'],
+        #     will=stats['will'],
+        #     lusk=stats['lusk'],
+        #     move=stats['move'],
+        #     body=stats['body'],
+        #     emp=stats['emp'],
+        # )
+
+        # return JsonResponse({'post': model_to_dict(post_new)})
+        # {json.dumps(stats)})
+        return JsonResponse(stats)
 
 
 class SkillsViewSet(ModelViewSet):
