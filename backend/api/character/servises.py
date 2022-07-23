@@ -5,6 +5,8 @@ from rich import print
 
 from character.character_data.stats.stat_presets import STATS_PRESETS
 # from character_data.stats.stat_presets import STATS_PRESETS
+from character_data.life_path_rus import FAMILY, MOTIVATION, GOALS, FRIENDS, ENEMIES, ROMANCE, PERSONALITY
+from classes.character.life_path_enums import Family
 
 
 def preset_stats(role_presets, dispersion=0):
@@ -23,7 +25,7 @@ def preset_stats(role_presets, dispersion=0):
             return 3
         return modified_stat
 
-    preset = role_presets[choice(list(role_presets))]
+    preset = STATS_PRESETS['FIXER'][choice(list(STATS_PRESETS["FIXER"]))]
 
     stats = {
         'intel': modified_stat(preset['intelligence']),
@@ -39,8 +41,23 @@ def preset_stats(role_presets, dispersion=0):
     }
 
     print(preset)
-    return json.dumps(stats)
+    return stats  # json.dumps(stats)
+
+
+def preset_life_path():
+    '''
+    Генерация жизненного пути персонажа
+    '''
+    print(li)
+
+
+def preset_character(name, role, dispersion=0):
+    '''
+    Генерирует случайного персонажа из пресетов.
+    '''
+    pass
 
 
 if __name__ == '__main__':
-    print(preset_stats(STATS_PRESETS['FIXER'], 0))
+    # print(preset_stats(STATS_PRESETS['FIXER'], 0))
+    print(FAMILY[Family])
