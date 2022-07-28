@@ -87,8 +87,24 @@ def preset_character(name, role, dispersion=0):
     gun_factory = GunFactory()
     weapon_factory = WeaponFactory(melee_weapon_factory, gun_factory)
     life_path_factory = LifePathFactory()
-    character_factory = CharacterFactory(stats_factory, life_path_factory, weapon_factory)
+    character_factory = CharacterFactory(
+        stats_factory, life_path_factory, weapon_factory)
     core_character = character_factory.create_random_fixer(name)
+
+    # создание моделей для character
+
+    post_new = Stats.objects.create(
+        intel=request.data['intel'],
+        ref=request.data['ref'],
+        dex=request.data['dex'],
+        tech=request.data['tech'],
+        cool=request.data['cool'],
+        will=request.data['will'],
+        lusk=request.data['lusk'],
+        move=request.data['move'],
+        body=request.data['body'],
+        emp=request.data['emp'],
+    )
 
     return core_character.as_json()
 
