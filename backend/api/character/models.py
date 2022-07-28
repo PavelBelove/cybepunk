@@ -206,20 +206,13 @@ class LifePath(models.Model):
         (10, 'Дружелюбный и общительный'),
     )
 
-    family = models.IntegerField(verbose_name='family',
-                                 choices=FAMILY)
-    motivation = models.IntegerField(
-        verbose_name='motivation', choices=MOTIVATION)
-    goals = models.IntegerField(verbose_name='goals',
-                                choices=GOALS)
-    friends = models.IntegerField(
-        verbose_name='friends', choices=FRIENDS)
-    enemies = models.IntegerField(
-        verbose_name='enemies', choices=ENEMIES)
-    romance = models.IntegerField(
-        verbose_name='romance', choices=ROMANCE)
-    personality = models.IntegerField(
-        verbose_name='personality', choices=PERSONALITY)
+    family = models.CharField(verbose_name='family', max_length=2048)
+    motivation = models.CharField(verbose_name='motivation', max_length=2048)
+    goals = models.CharField(verbose_name='goals', max_length=2048)
+    friends = models.CharField(verbose_name='friends', max_length=2048)
+    enemies = models.CharField(verbose_name='enemies', max_length=2048)
+    romance = models.CharField(verbose_name='romance', max_length=2048)
+    personality = models.CharField(verbose_name='personality', max_length=2048)
 
     def as_json(self):
         u'''Returns Model as JSON'''
@@ -340,7 +333,7 @@ class Character(models.Model):
         (10, 'JOUNALIST'),
     )
     user = models.ForeignKey(User, verbose_name='user',
-                             on_delete=models.CASCADE)
+                             on_delete=models.CASCADE, null=True)
     name = models.CharField(verbose_name='hit_points',
                             max_length=64, default='Punk')
     role = models.IntegerField(verbose_name='role', choices=ROLES)

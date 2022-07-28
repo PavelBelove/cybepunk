@@ -79,9 +79,10 @@ class Character(Actor):
         enemy_defence = enemy._stats._dex + enemy._skills._evasion + dice_enemy
 
         return character_damage if character_damage > enemy_defence else 0
-    
+
     def as_json(self):
         return {
+            'name': self._name,
             'role': self._role,
             'skills': self._skills.as_json(),
             'life_path': self._life_path.as_json(),
@@ -91,7 +92,7 @@ class Character(Actor):
             'left_hand_weapon': self._left_hand_weapon.as_json(),
             'right_hand_weapon': self._right_hand_weapon.as_json(),
             'inventory': [item.as_json() for item in self._inventory.values()],
-        } 
+        }
 
 
 if __name__ == '__main__':
