@@ -81,28 +81,57 @@ class CharacterFactory:
             life_path,
         )
 
-    def create_random_fixer(self, name, stats=None, life_path=None):
-        stats = stats if stats is not None else self._stats_factory._create_preset_stats('FIXER',
+    # def create_random_fixer(self, name, stats=None, life_path=None):
+    #     stats = stats if stats is not None else self._stats_factory._create_preset_stats('FIXER',
+    #                                                                                      1)
+    #     life_path = life_path if life_path is not None else self._life_path_factory.create()
+    #     fixer = self.create_character(
+    #         name,
+    #         'Fixer',
+    #         stats,
+    #         life_path,
+    #         # skills if skills else,
+    #     )
+
+    #     # FIXME: Fix DRY
+
+    #     slice_and_dice = self._weapon_factory.create(
+    #         MeleeWeaponType.SLICE_AND_DICE)
+    #     heavy_pistol = self._weapon_factory.create(GunType.HEAVY_PISTOL)
+
+    #     fixer._inventory[slice_and_dice.id] = slice_and_dice
+    #     fixer._inventory[heavy_pistol.id] = heavy_pistol
+
+    #     fixer.set_weapon(
+    #         slice_and_dice,
+    #         heavy_pistol
+    #     )
+
+    #     return fixer
+
+    def create_random_character(self, name, role, stats=None, life_path=None):
+        stats = stats if stats is not None else self._stats_factory._create_preset_stats(role,
                                                                                          1)
         life_path = life_path if life_path is not None else self._life_path_factory.create()
         fixer = self.create_character(
             name,
-            'Fixer',
+            role,
             stats,
             life_path,
             # skills if skills else,
         )
-        
+
         # FIXME: Fix DRY
 
-        slice_and_dice = self._weapon_factory.create(MeleeWeaponType.SLICE_AND_DICE)
+        slice_and_dice = self._weapon_factory.create(
+            MeleeWeaponType.SLICE_AND_DICE)
         heavy_pistol = self._weapon_factory.create(GunType.HEAVY_PISTOL)
-        
+
         fixer._inventory[slice_and_dice.id] = slice_and_dice
         fixer._inventory[heavy_pistol.id] = heavy_pistol
 
         fixer.set_weapon(
-            slice_and_dice, 
+            slice_and_dice,
             heavy_pistol
         )
 

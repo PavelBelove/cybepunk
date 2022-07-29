@@ -20,11 +20,6 @@ from rich import print
 User = get_user_model()
 
 
-# from character_data.stats.stat_presets import STATS_PRESETS
-# from character.character_data.life_path_rus import FAMILY, MOTIVATION, GOALS, FRIENDS, ENEMIES, ROMANCE, PERSONALITY
-# from classes.character.life_path_enums import Family
-
-
 def preset_stats(role_presets, dispersion=0):
     '''
     Выдает случайные статы из пресета согласно роли.
@@ -93,7 +88,7 @@ def preset_character(name, role, dispersion=0):
     life_path_factory = LifePathFactory()
     character_factory = CharacterFactory(
         stats_factory, life_path_factory, weapon_factory)
-    core_character = character_factory.create_random_fixer(name)
+    core_character = character_factory.create_random_character(name, role)
     dict_character = core_character.as_json()
 
     # создание моделей для character
@@ -177,5 +172,4 @@ def preset_character(name, role, dispersion=0):
 
 
 if __name__ == '__main__':
-    # print(preset_stats(STATS_PRESETS['FIXER'], 0))
-    print(FAMILY[Family])
+    pass
