@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer
-from character.models import Character, Stats, Skills, LifePath, Weapon
+from character.models import Character, Items, Stats, Skills, LifePath
 
 
 class StatsSerialiser(ModelSerializer):
@@ -35,9 +35,9 @@ class LifePathSerialiser(ModelSerializer):
         fields = '__all__'
 
 
-class WeaponSerialiser(ModelSerializer):
+class ItemsSerialiser(ModelSerializer):
     class Meta:
-        model = Weapon
+        model = Items
         fields = '__all__'
 
 

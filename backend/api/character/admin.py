@@ -2,7 +2,7 @@
 from django.contrib import admin
 
 # from . import models
-from character.models import Character, Stats, Skills, LifePath, Weapon
+from character.models import Character, Stats, Skills, LifePath, Items
 
 # Register your models here.
 
@@ -121,24 +121,26 @@ class LifePathAdmin(admin.ModelAdmin):
     # ]
 
 
-class WeaponAdmin(admin.ModelAdmin):
+class ItemsAdmin(admin.ModelAdmin):
     fields = (
-        'user',
         'name',
-        'role',
-        'skills',
-        'life_path',
-        'stats',
-        'hit_points',
-        'max_hit_points',
-        'left_hand_weapon',
-        'right_hand_weapon',
-        'inventory',
+        'weight',
+        'price',
+        'installed',
+        'slot',
+        'humanity_penalty',
+        'skill_modifier',
+        'hands',
+        'is_hidden',
+        'dices',
+        'dice_type',
+        'ammo',
+        'max_ammo',
     )
 
 
 admin.site.register(Stats, StatsAdmin)
 admin.site.register(Skills, SkillsAdmin)
 admin.site.register(LifePath, LifePathAdmin)
-admin.site.register(Weapon, WeaponAdmin)
+admin.site.register(Items, ItemsAdmin)
 admin.site.register(Character, CharacterAdmin)

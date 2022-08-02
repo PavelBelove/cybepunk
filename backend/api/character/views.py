@@ -11,8 +11,8 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 
-from character.serializers import CharacterSerialiser, LifePathSerialiser, SkillsSerialiser, StatsSerialiser, WeaponSerialiser
-from character.models import Character, LifePath, Skills, Stats, Weapon
+from character.serializers import CharacterSerialiser, ItemsSerialiser, LifePathSerialiser, SkillsSerialiser, StatsSerialiser
+from character.models import Character, Items, LifePath, Skills, Stats
 from character.servises import preset_stats, preset_character
 from core.character_data.stats.stat_presets import STATS_PRESETS
 
@@ -142,9 +142,9 @@ class LifePathViewSet(ModelViewSet):
     queryset = LifePath.objects.all()
 
 
-class WeaponViewSet(ModelViewSet):
-    serializer_class = WeaponSerialiser
-    queryset = Weapon.objects.all()
+class ItemsViewSet(ModelViewSet):
+    serializer_class = ItemsSerialiser
+    queryset = Items.objects.all()
 
 
 class CharacterViewSet(ModelViewSet):

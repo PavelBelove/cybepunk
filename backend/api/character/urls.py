@@ -1,14 +1,14 @@
 from django.urls import path, include
 from django.conf.urls import *
 from rest_framework.routers import DefaultRouter
-from character.views import index, CharacterViewSet, SkillsViewSet, StatsViewSet, LifePathViewSet, WeaponViewSet, TestView
+from character.views import ItemsViewSet, index, CharacterViewSet, SkillsViewSet, StatsViewSet, LifePathViewSet, TestView
 
 router = DefaultRouter()
 router.register(r'character', CharacterViewSet)
 router.register(r'stats', StatsViewSet)
 router.register(r'skills', SkillsViewSet)
 router.register(r'life_path', LifePathViewSet)
-router.register(r'weapon', WeaponViewSet)
+router.register(r'items', ItemsViewSet)
 
 app_name = 'character'
 urlpatterns = [
@@ -25,10 +25,8 @@ urlpatterns = [
          TestView.as_view()),
 
     path('api/v1/character/', include(router.urls)),
-    path('api/v1/character/', include(router.urls)),
-    path('api/v1/character/', include(router.urls)),
-    path('api/v1/character/', include(router.urls)),
-    path('api/v1/character/', include(router.urls)),
-
-
+    # path('api/v1/character/', include(router.urls)),
+    # path('api/v1/character/', include(router.urls)),
+    # path('api/v1/character/', include(router.urls)),
+    # path('api/v1/character/', include(router.urls)),
 ]

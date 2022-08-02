@@ -1,3 +1,4 @@
+from statistics import mode
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -254,14 +255,13 @@ class LifePath(models.Model):
 #     def __str__(self):
 #         return self.name
 
-
-class Weapon(models.Model):
+class Items(models.Model):
     u'''Model Class'''
 
     class Meta:
         u'''Model Meta'''
-        verbose_name = "Оружие"
-        verbose_name_plural = "Оружие"
+        verbose_name = "Предмет"
+        verbose_name_plural = "Предметы"
 
     MASS = (
         (0, 'implant'),
@@ -285,24 +285,48 @@ class Weapon(models.Model):
 
     AMMO = zip(range(1, 30), range(1, 30))
 
+    SLOTS = (
+        (0, 'brain'),
+        (1, 'left_eye'),
+        (2, 'right_eye'),
+        (3, 'hearing'),
+        (4, 'leather'),
+        (5, 'heart'),
+        (6, 'left_hand'),
+        (7, 'right_hand'),
+        (8, 'left_leg'),
+        (9, 'right_leg'),
+    )
+
     name = models.CharField(verbose_name='hit_points', max_length=64)
-    mass = models.IntegerField(verbose_name='mass', choices=MASS)
-    hands = models.IntegerField(verbose_name='hands', choices=HANDS)
+    weight = models.IntegerField(verbose_name='mass', choices=MASS)
     price = models.IntegerField(verbose_name='intel', default=50)
-    is_hidden = models.BooleanField(default=False)
-    dices = models.IntegerField(verbose_name='dises', choices=DISES)
+    installed = models.BooleanField(default=True)
+    slot = models.IntegerField(verbose_name='mass', choices=SLOTS, null=True)
+    humanity_penalty = models.CharField(
+        verbose_name='hit_points', max_length=64, null=True)
+    skill_modifier = models.CharField(
+        verbose_name='hit_points', max_length=64, null=True)
+    hands = models.IntegerField(verbose_name='hands', choices=HANDS, null=True)
+    is_hidden = models.BooleanField(default=False, null=True)
+    dices = models.IntegerField(verbose_name='dises', choices=DISES, null=True)
     dice_type = models.IntegerField(
-        verbose_name='dises_type', choices=DISES_TYPE)
-    ammo = models.IntegerField(verbose_name='ammo', choices=AMMO)
-    max_ammo = models.IntegerField(verbose_name='max_ammo', choices=AMMO)
+        verbose_name='dises_type', choices=DISES_TYPE, null=True)
+    ammo = models.IntegerField(verbose_name='ammo', choices=AMMO, null=True)
+    max_ammo = models.IntegerField(
+        verbose_name='max_ammo', choices=AMMO, null=True)
 
     def as_json(self):
         u'''Returns Model as JSON'''
         return dict(
             name=self.name,
-            mass=self.mass,
-            hands=self.hands,
+            weight=self.weight,
             price=self.price,
+            installed=self.installed,
+            slot=self.slot,
+            humanity_penalty=self.humanity_penalty,
+            skill_modifier=self.skill_modifier,
+            hands=self.hands,
             is_hidden=self.is_hidden,
             dices=self.dices,
             dice_type=self.dice_type,
@@ -312,6 +336,113 @@ class Weapon(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class ImplantSlots(models.Model):
+
+    u'''Model Class'''
+
+    class Meta:
+        u'''Model Meta'''
+        verbose_name = "Слоты имплантов"
+        verbose_name_plural = "Слоты имплантов"
+
+    brain = models.ForeignKey(Items, verbose_name='brain',
+                              related_name='Brain', on_delete=models.CASCADE, null=True)
+    left_eye = models.ForeignKey(Items, verbose_name='left_eye',
+                                 related_name='LeftEye', on_delete=models.CASCADE, null=True)
+    right_eye = models.ForeignKey(Items, verbose_name='right_eye',
+                                  related_name='RightEye', on_delete=models.CASCADE, null=True)
+    hearing = models.ForeignKey(Items, verbose_name='hearing',
+                                related_name='Hearing', on_delete=models.CASCADE, null=True)
+    leather = models.ForeignKey(Items, verbose_name='leather',
+                                related_name='Leather', on_delete=models.CASCADE, null=True)
+    heart = models.ForeignKey(Items, verbose_name='heart',
+                              related_name='Heart', on_delete=models.CASCADE, null=True)
+    left_hand = models.ForeignKey(Items, verbose_name='left_hand',
+                                  related_name='LeftHand', on_delete=models.CASCADE, null=True)
+    right_hand = models.ForeignKey(Items, verbose_name='right_hand',
+                                   related_name='RightHand', on_delete=models.CASCADE, null=True)
+    left_leg = models.ForeignKey(Items, verbose_name='left_leg',
+                                 related_name='LeftLeg', on_delete=models.CASCADE, null=True)
+    right_leg = models.ForeignKey(Items, verbose_name='right_leg',
+                                  related_name='RightLeg', on_delete=models.CASCADE, null=True)
+
+    def as_json(self):
+        u'''Returns Model as JSON'''
+        return dict(
+            brain=self.brain,
+            left_eye=self.left_eye,
+            right_eye=self.right_eye,
+            hearing=self.hearing,
+            leather=self.leather,
+            heart=self.heart,
+            left_hand=self.left_hand,
+            right_hand=self.right_hand,
+            left_leg=self.left_leg,
+            right_leg=self.right_leg,
+        )
+
+    def __str__(self):
+        return self.name
+
+# class Weapon(models.Model):
+#     u'''Model Class'''
+
+#     class Meta:
+#         u'''Model Meta'''
+#         verbose_name = "Оружие"
+#         verbose_name_plural = "Оружие"
+
+#     MASS = (
+#         (0, 'implant'),
+#         (1, 'light'),
+#         (2, 'medium'),
+#         (3, 'heavy'),
+#     )
+
+#     HANDS = (
+#         (0, 'implant'),
+#         (1, 'one'),
+#         (2, 'Two'),
+#     )
+
+#     DISES = zip(range(1, 5), range(1, 5))
+
+#     DISES_TYPE = (
+#         (0, 'd6'),
+#         (1, 'd10'),
+#     )
+
+#     AMMO = zip(range(1, 30), range(1, 30))
+
+#     name = models.CharField(verbose_name='hit_points', max_length=64)
+#     mass = models.IntegerField(verbose_name='mass', choices=MASS)
+#     hands = models.IntegerField(verbose_name='hands', choices=HANDS)
+#     price = models.IntegerField(verbose_name='intel', default=50)
+#     is_hidden = models.BooleanField(default=False)
+#     dices = models.IntegerField(verbose_name='dises', choices=DISES)
+#     dice_type = models.IntegerField(
+#         verbose_name='dises_type', choices=DISES_TYPE)
+#     ammo = models.IntegerField(verbose_name='ammo', choices=AMMO, name=True)
+#     max_ammo = models.IntegerField(verbose_name='max_ammo', choices=AMMO, null=True)
+
+#     def as_json(self):
+#         u'''Returns Model as JSON'''
+#         return dict(
+#             name=self.name,
+#             mass=self.mass,
+#             hands=self.hands,
+#             price=self.price,
+#             is_hidden=self.is_hidden,
+#             dices=self.dices,
+#             dice_type=self.dice_type,
+#             ammo=self.ammo,
+#             max_ammo=self.max_ammo,
+#         )
+
+#     def __str__(self):
+#         return self.name
 
 
 class Character(models.Model):
@@ -347,6 +478,9 @@ class Character(models.Model):
 
     max_hit_points = models.CharField(
         verbose_name='max_hit_points', max_length=64)
+
+    implants = models.ForeignKey(
+        'ImplantSlots', verbose_name='implants', on_delete=models.CASCADE)
 
     left_hand_weapon = models.CharField(
         verbose_name='left_hand_weapon', max_length=64)

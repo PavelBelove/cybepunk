@@ -9,7 +9,7 @@ from core.factories.weapon.melee_weapon_factory import MeleeWeaponFactory
 
 
 from core.character_data.stats.stat_presets import STATS_PRESETS
-from character.models import Character, LifePath, Skills, Stats, Weapon
+from character.models import Character, LifePath, Skills, Stats
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse, JsonResponse
 from django.forms import model_to_dict
