@@ -1,0 +1,35 @@
+[
+    {
+        'name': 'small_knife',
+        'weight': 1,
+        # 'damage': '',
+        'hands': 1,
+        'price': 10,
+        # 'quality': '',
+        'is_hidden': True,
+        'dices': 3,
+        'dice_type': 6,
+    },
+    {
+        'name': 'machete',
+        'weight': 1,
+        # 'damage': '',
+        'hands': 1,
+        'price': 20,
+        # 'quality': '',
+        'is_hidden': False,
+        'dices': 3,
+        'dice_type': 6,
+    },
+    {
+        'name': 'Slice And Dice',
+        'weight': 0,
+        # 'damage': '',
+        'hands': 1,
+        'price': 20,
+        # 'quality': '',
+        'is_hidden': False,
+        'dices': 2,
+        'dice_type': 6,
+    }
+]

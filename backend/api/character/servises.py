@@ -9,7 +9,7 @@ from core.factories.weapon.melee_weapon_factory import MeleeWeaponFactory
 
 
 from core.character_data.stats.stat_presets import STATS_PRESETS
-from character.models import Character, LifePath, Skills, Stats
+from character.models import Character, ImplantSlots, Items, LifePath, Skills, Stats
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse, JsonResponse
 from django.forms import model_to_dict
@@ -18,6 +18,42 @@ from rich import print
 
 
 User = get_user_model()
+
+preset_inventory = [
+    {
+        'name': 'small_knife',
+        'weight': 1,
+        # 'damage': '',
+        'hands': 1,
+        'price': 10,
+        # 'quality': '',
+        'is_hidden': True,
+        'dices': 3,
+        'dice_type': 6,
+    },
+    {
+        'name': 'machete',
+        'weight': 1,
+        # 'damage': '',
+        'hands': 1,
+        'price': 20,
+        # 'quality': '',
+        'is_hidden': False,
+        'dices': 3,
+        'dice_type': 6,
+    },
+    {
+        'name': 'Slice And Dice',
+        'weight': 0,
+        # 'damage': '',
+        'hands': 1,
+        'price': 20,
+        # 'quality': '',
+        'is_hidden': False,
+        'dices': 2,
+        'dice_type': 6,
+    }
+]
 
 
 def preset_stats(role_presets, dispersion=0):
@@ -67,20 +103,11 @@ def preset_character(name, role, dispersion=0):
     Генерирует случайного персонажа из пресетов.
     '''
 
-    stats = preset_stats(role, dispersion=dispersion)
-    # new_stats = Stats.objects.create(
-    #     intel=stats['intel'],
-    #     ref=stats['ref'],
-    #     dex=stats['dex'],
-    #     tech=stats['tech'],
-    #     cool=stats['cool'],
-    #     will=stats['will'],
-    #     lusk=stats['lusk'],
-    #     move=stats['move'],
-    #     body=stats['body'],
-    #     emp=stats['emp'],
-    # )
-    # new_stats.save()
+    def create_item(character_id, **item):
+        Items.objects.create(
+            character_id=character_id,
+            **item
+        )
 
     stats_factory = StatsFactory()
     melee_weapon_factory = MeleeWeaponFactory()
@@ -118,8 +145,11 @@ def preset_character(name, role, dispersion=0):
         max_hit_points=dict_character['max_hit_points'],
         left_hand_weapon=dict_character['left_hand_weapon'],
         right_hand_weapon=dict_character['right_hand_weapon'],
-        inventory=dict_character['inventory'],
+        # inventory=dict_character['inventory'],
     )
+
+    inventory = [create_item(character_new.id, **item)
+                 for item in preset_inventory]
 
     stats_new = Stats.objects.create(
         character_id=character_new.id,
@@ -171,8 +201,23 @@ def preset_character(name, role, dispersion=0):
         personality=dict_character['life_path']['personality'],
     )
 
-    return core_character.as_json()
-    # return stats_new.as_json()
+    implant_slots_new = ImplantSlots.objects.create(
+        character_id=character_new.id,
+        # сделать генерацию по пресетам для ролей
+        # brain=None,
+        # left_eye=None,
+        # right_eye=None,
+        # hearing=None,
+        # leather=None,
+        # heart=None,
+        # left_hand=None,
+        # right_hand=None,
+        # left_leg=None,
+        # right_leg=None,
+    )
+
+    # return core_character.as_json()
+    return character_new.as_json()
 
 
 if __name__ == '__main__':

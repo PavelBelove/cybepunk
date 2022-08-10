@@ -11,8 +11,8 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 
-from character.serializers import CharacterSerialiser, ItemsSerialiser, LifePathSerialiser, SkillsSerialiser, StatsSerialiser
-from character.models import Character, Items, LifePath, Skills, Stats
+from character.serializers import CharacterSerialiser, ImplantSlotsSerialiser, ItemsSerialiser, LifePathSerialiser, SkillsSerialiser, StatsSerialiser
+from character.models import Character, ImplantSlots, Items, LifePath, Skills, Stats
 from character.servises import preset_stats, preset_character
 from core.character_data.stats.stat_presets import STATS_PRESETS
 
@@ -140,6 +140,11 @@ class SkillsViewSet(ModelViewSet):
 class LifePathViewSet(ModelViewSet):
     serializer_class = LifePathSerialiser
     queryset = LifePath.objects.all()
+
+
+class ImplantSlotsViewSet(ModelViewSet):
+    serializer_class = ImplantSlotsSerialiser
+    queryset = ImplantSlots.objects.all()
 
 
 class ItemsViewSet(ModelViewSet):

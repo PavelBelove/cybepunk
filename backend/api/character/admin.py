@@ -2,7 +2,7 @@
 from django.contrib import admin
 
 # from . import models
-from character.models import Character, Stats, Skills, LifePath, Items
+from character.models import Character, ImplantSlots, Stats, Skills, LifePath, Items
 
 # Register your models here.
 
@@ -121,6 +121,21 @@ class LifePathAdmin(admin.ModelAdmin):
     # ]
 
 
+class ImplantSlotsAdmin(admin.ModelAdmin):
+    fields = (
+        'brain',
+        'left_eye',
+        'right_eye',
+        'hearing',
+        'leather',
+        'heart',
+        'left_hand',
+        'right_hand',
+        'left_leg',
+        'right_leg',
+    )
+
+
 class ItemsAdmin(admin.ModelAdmin):
     fields = (
         'name',
@@ -142,5 +157,6 @@ class ItemsAdmin(admin.ModelAdmin):
 admin.site.register(Stats, StatsAdmin)
 admin.site.register(Skills, SkillsAdmin)
 admin.site.register(LifePath, LifePathAdmin)
+admin.site.register(ImplantSlots, ImplantSlotsAdmin)
 admin.site.register(Items, ItemsAdmin)
 admin.site.register(Character, CharacterAdmin)
