@@ -1,6 +1,7 @@
 from statistics import mode
 from django.db import models
 from django.contrib.auth import get_user_model
+from numpy import character
 
 User = get_user_model()
 
@@ -13,6 +14,8 @@ class Stats(models.Model):
         verbose_name = "Статы"
         verbose_name_plural = "Статы"
 
+    character = models.ForeignKey(
+        'Character', verbose_name='character', on_delete=models.CASCADE)
     intel = models.IntegerField(verbose_name='intel', default=5)
     ref = models.IntegerField(verbose_name='ref', default=5)
     dex = models.IntegerField(verbose_name='dex', default=5)
@@ -50,6 +53,8 @@ class Skills(models.Model):
         verbose_name = "Навык"
         verbose_name_plural = "Навыки"
 
+    character = models.ForeignKey(
+        'Character', verbose_name='character', on_delete=models.CASCADE)
     brawling = models.IntegerField(verbose_name='brawling', default=5)
     evasion = models.IntegerField(verbose_name='evasion', default=5)
     marksmanship = models.IntegerField(verbose_name='marksmanship', default=5)
@@ -206,7 +211,8 @@ class LifePath(models.Model):
         (9, 'Умный и отстранённый'),
         (10, 'Дружелюбный и общительный'),
     )
-
+    character = models.ForeignKey(
+        'Character', verbose_name='character', on_delete=models.CASCADE)
     family = models.CharField(verbose_name='family', max_length=2048)
     motivation = models.CharField(verbose_name='motivation', max_length=2048)
     goals = models.CharField(verbose_name='goals', max_length=2048)
@@ -299,6 +305,8 @@ class Items(models.Model):
     )
 
     name = models.CharField(verbose_name='hit_points', max_length=64)
+    character = models.ForeignKey(
+        'Character', verbose_name='character', on_delete=models.CASCADE)
     weight = models.IntegerField(verbose_name='mass', choices=MASS)
     price = models.IntegerField(verbose_name='intel', default=50)
     installed = models.BooleanField(default=True)
@@ -346,6 +354,9 @@ class ImplantSlots(models.Model):
         u'''Model Meta'''
         verbose_name = "Слоты имплантов"
         verbose_name_plural = "Слоты имплантов"
+
+    character = models.ForeignKey(
+        'Character', verbose_name='character', on_delete=models.CASCADE)
 
     brain = models.ForeignKey(Items, verbose_name='brain',
                               related_name='Brain', on_delete=models.CASCADE, null=True)
@@ -468,19 +479,19 @@ class Character(models.Model):
     name = models.CharField(verbose_name='hit_points',
                             max_length=64, default='Punk')
     role = models.IntegerField(verbose_name='role', choices=ROLES)
-    skills = models.ForeignKey(
-        'Skills', verbose_name='skills', on_delete=models.CASCADE)
-    life_path = models.ForeignKey('LifePath',
-                                  verbose_name='life_path', on_delete=models.CASCADE)
-    stats = models.ForeignKey(
-        'Stats', verbose_name='stats', on_delete=models.CASCADE)
+    # skills = models.ForeignKey(
+    #     'Skills', verbose_name='skills', on_delete=models.CASCADE)
+    # life_path = models.ForeignKey('LifePath',
+    #                               verbose_name='life_path', on_delete=models.CASCADE)
+    # stats = models.ForeignKey(
+    #     'Stats', verbose_name='stats', on_delete=models.CASCADE)
     hit_points = models.CharField(verbose_name='hit_points', max_length=64)
 
     max_hit_points = models.CharField(
         verbose_name='max_hit_points', max_length=64)
 
-    implants = models.ForeignKey(
-        'ImplantSlots', verbose_name='implants', on_delete=models.CASCADE)
+    # implants = models.ForeignKey(
+    #     'ImplantSlots', verbose_name='implants', on_delete=models.CASCADE)
 
     left_hand_weapon = models.CharField(
         verbose_name='left_hand_weapon', max_length=64)
