@@ -154,7 +154,7 @@ class LifePath(models.Model):
         (4, 'Причинить боль и страдания всем, кто перешёл вам дорогу.'),
         (5, 'Избавиться от прошлого и постараться забыть о нём.'),
         (6, 'Выследить тех, кто испортил вам жизнь, и призвать их к ответу.'),
-        (7, ' Получить то, что принадлежит вам по праву.'),
+        (7, 'Получить то, что принадлежит вам по праву.'),
         (8, 'По возможности спасти пострадавших членов семьи.'),
         (9, 'Добиться славы и признания.'),
         (10, 'Сделать так, чтобы вас боялись и уважали.'),
@@ -476,7 +476,7 @@ class Character(models.Model):
     )
     user = models.ForeignKey(User, verbose_name='user',
                              on_delete=models.CASCADE, null=True)
-    name = models.CharField(verbose_name='hit_points',
+    name = models.CharField(verbose_name='name',
                             max_length=64, default='Punk')
     role = models.IntegerField(verbose_name='role', choices=ROLES)
     # skills = models.ForeignKey(

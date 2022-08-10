@@ -66,6 +66,7 @@ def preset_character(name, role, dispersion=0):
     '''
     Генерирует случайного персонажа из пресетов.
     '''
+
     stats = preset_stats(role, dispersion=dispersion)
     # new_stats = Stats.objects.create(
     #     intel=stats['intel'],
@@ -93,7 +94,35 @@ def preset_character(name, role, dispersion=0):
 
     # создание моделей для character
 
+    ROLES = {
+        'FIXER': 1,
+        'ROCKERBOY': 2,
+        'SOLO': 3,
+        'NETRUNNER': 4,
+        'NOMAD': 5,
+        'TECH': 6,
+        'COP': 7,
+        'CORPORATE': 8,
+        'MEDIC': 9,
+        'JOUNALIST': 10,
+    }
+
+    character_new = Character.objects.create(
+        user=User.objects.first(),  # Сделать получение текущего пользователя
+        name=dict_character['name'],
+        role=ROLES[dict_character['role'].upper()],
+        # skills=skills_new,
+        # life_path=life_path_new,
+        # stats=stats_new,
+        hit_points=dict_character['hit_points'],
+        max_hit_points=dict_character['max_hit_points'],
+        left_hand_weapon=dict_character['left_hand_weapon'],
+        right_hand_weapon=dict_character['right_hand_weapon'],
+        inventory=dict_character['inventory'],
+    )
+
     stats_new = Stats.objects.create(
+        character_id=character_new.id,
         intel=dict_character['stats']['intel'],
         ref=dict_character['stats']['ref'],
         dex=dict_character['stats']['dex'],
@@ -107,6 +136,7 @@ def preset_character(name, role, dispersion=0):
     )
 
     skills_new = Skills.objects.create(
+        character_id=character_new.id,
         brawling=dict_character['skills']['brawling'],
         evasion=dict_character['skills']['evasion'],
         marksmanship=dict_character['skills']['marksmanship'],
@@ -131,6 +161,7 @@ def preset_character(name, role, dispersion=0):
     )
 
     life_path_new = LifePath.objects.create(
+        character_id=character_new.id,
         family=dict_character['life_path']['family'],
         motivation=dict_character['life_path']['motivation'],
         goals=dict_character['life_path']['goals'],
@@ -138,33 +169,6 @@ def preset_character(name, role, dispersion=0):
         enemies=dict_character['life_path']['enemies'],
         romance=dict_character['life_path']['romance'],
         personality=dict_character['life_path']['personality'],
-    )
-
-    ROLES = {
-        'FIXER': 1,
-        'ROCKERBOY': 2,
-        'SOLO': 3,
-        'NETRUNNER': 4,
-        'NOMAD': 5,
-        'TECH': 6,
-        'COP': 7,
-        'CORPORATE': 8,
-        'MEDIC': 9,
-        'JOUNALIST': 10,
-    }
-
-    character_new = Character.objects.create(
-        user=User.objects.first(),  # Сделать получение текущего пользователя
-        name=dict_character['name'],
-        role=ROLES[dict_character['role'].upper()],
-        skills=skills_new,
-        life_path=life_path_new,
-        stats=stats_new,
-        hit_points=dict_character['hit_points'],
-        max_hit_points=dict_character['max_hit_points'],
-        left_hand_weapon=dict_character['left_hand_weapon'],
-        right_hand_weapon=dict_character['right_hand_weapon'],
-        inventory=dict_character['inventory'],
     )
 
     return core_character.as_json()
