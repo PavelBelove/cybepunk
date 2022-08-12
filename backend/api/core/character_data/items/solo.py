@@ -1,26 +1,35 @@
 from core.character_data.items.item_options import ITEM_TYPE, IMPLANT_SLOTS, MASS, HANDS
 
-
-fixer_items = [
+solo_items = [
     {
         'item_type': ITEM_TYPE['gun'],
-        'name': 'Heavy Pistol',
-        'weight': MASS['light'],
-        'hands': HANDS['one'],
-        'price': 100,
+        'name': 'Assault Rifle',
+        'weight': MASS['heavy'],
+        'hands': HANDS['two'],
+        'price': 300,
         'is_hidden': False,
-        'dices': 3,
+        'dices': 5,
         'dice_type': 6,
-        'ammo': 10,
-        'max_ammo': 10,
+        'ammo': 30,
+        'max_ammo': 30,
     },
     {
         'item_type': ITEM_TYPE['implanted_weapon'],
-        'name': 'Medium SMG',
+        'name': 'Cyberarm',
         'weight': MASS['implant'],
-        'hands': HANDS['one'],
         'installed': True,
         'slot': IMPLANT_SLOTS['right_hand'],
+        'price': 500,
+        'is_hidden': True,
+        'dices': 1,
+        'dice_type': 6,
+    },
+    {
+        'item_type': ITEM_TYPE['implanted_weapon'],
+        'name': 'Rippers',
+        'weight': MASS['implant'],
+        'installed': True,
+        'slot': IMPLANT_SLOTS['left_hand'],
         'price': 200,
         'is_hidden': True,
         'dices': 2,
@@ -28,7 +37,7 @@ fixer_items = [
     },
     {
         'item_type': ITEM_TYPE['modifier_implants'],
-        'name': 'Cyberaudio',
+        'name': 'Cyberleg Jump Boosters',
         'weight': MASS['implant'],
         'installed': True,
         'slot': IMPLANT_SLOTS['brain'],
@@ -39,20 +48,11 @@ fixer_items = [
     },
     {
         'item_type': ITEM_TYPE['modifier_implants'],
-        'name': 'Cyberoptics Low Light',
+        'name': 'Cyberoptics Targeting',
         'weight': MASS['implant'],
         'installed': True,
         'slot': IMPLANT_SLOTS['right_eye'],
-        'price': 250,
-        'is_hidden': True,
-        'dices': 2,
-        'dice_type': 6,
-    },
-    {
-        'item_type': ITEM_TYPE['coins'],
-        'name': 'Coins',
-        'weight': MASS['light'],
-        'price': 100,
+        'price': 350,
         'is_hidden': True,
     },
     {

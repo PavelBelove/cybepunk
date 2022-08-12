@@ -1,7 +1,7 @@
 from core.character_data.items.item_options import ITEM_TYPE, IMPLANT_SLOTS, MASS, HANDS
 
 
-fixer_items = [
+tech_items = [
     {
         'item_type': ITEM_TYPE['gun'],
         'name': 'Heavy Pistol',
@@ -15,12 +15,35 @@ fixer_items = [
         'max_ammo': 10,
     },
     {
+        'item_type': ITEM_TYPE['gun'],
+        'name': 'Shotgun',
+        'weight': MASS['heavy'],
+        'hands': HANDS['two'],
+        'price': 300,
+        'is_hidden': False,
+        'dices': 5,
+        'dice_type': 6,
+        'ammo': 5,
+        'max_ammo': 5,
+    },
+    {
         'item_type': ITEM_TYPE['implanted_weapon'],
-        'name': 'Medium SMG',
+        'name': 'Cyberarm',
+        'weight': MASS['implant'],
+        'installed': True,
+        'slot': IMPLANT_SLOTS['right_hand'],
+        'price': 500,
+        'is_hidden': True,
+        'dices': 1,
+        'dice_type': 6,
+    },
+    {
+        'item_type': ITEM_TYPE['implanted_weapon'],
+        'name': 'Big Knucks',
         'weight': MASS['implant'],
         'hands': HANDS['one'],
         'installed': True,
-        'slot': IMPLANT_SLOTS['right_hand'],
+        'slot': IMPLANT_SLOTS['left_hand'],
         'price': 200,
         'is_hidden': True,
         'dices': 2,
@@ -28,39 +51,18 @@ fixer_items = [
     },
     {
         'item_type': ITEM_TYPE['modifier_implants'],
-        'name': 'Cyberaudio',
-        'weight': MASS['implant'],
-        'installed': True,
-        'slot': IMPLANT_SLOTS['brain'],
-        'price': 250,
-        'is_hidden': True,
-        'dices': 2,
-        'dice_type': 6,
-    },
-    {
-        'item_type': ITEM_TYPE['modifier_implants'],
-        'name': 'Cyberoptics Low Light',
+        'name': 'Cyberoptics Camera',
         'weight': MASS['implant'],
         'installed': True,
         'slot': IMPLANT_SLOTS['right_eye'],
         'price': 250,
         'is_hidden': True,
-        'dices': 2,
-        'dice_type': 6,
     },
     {
-        'item_type': ITEM_TYPE['coins'],
-        'name': 'Coins',
+        'item_type': ITEM_TYPE['subject'],
+        'name': 'Technical Tool Box & Tools',
         'weight': MASS['light'],
-        'price': 100,
-        'is_hidden': True,
+        'price': 300,
+        'is_hidden': False,
     },
-    {
-        'item_type': ITEM_TYPE['electronics'],
-        'name': 'Agent',
-        'weight': MASS['light'],
-        'price': 100,
-        'is_hidden': True,
-    },
-
 ]

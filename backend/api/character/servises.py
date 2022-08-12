@@ -1,4 +1,5 @@
-import json
+
+from core.character_data.armor_presets import ARMOR_PRESETS
 
 from core.factories.character.character_factory import CharacterFactory
 from core.factories.character.life_path_factory import LifePathFactory
@@ -9,7 +10,8 @@ from core.factories.weapon.melee_weapon_factory import MeleeWeaponFactory
 
 
 from core.character_data.stats.stat_presets import STATS_PRESETS
-from character.models import Character, ImplantSlots, Items, LifePath, Skills, Stats
+from core.character_data.items.inventory_presets import ITEMS_PRESETS
+from character.models import Armor, Character, ImplantSlots, Items, LifePath, Skills, Stats
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse, JsonResponse
 from django.forms import model_to_dict
@@ -87,7 +89,7 @@ def preset_stats(role_presets, dispersion=0):
         'emp': modified_stat(preset['empathy']),
     }
 
-    print(preset)
+    # print(preset)
     return stats  # json.dumps(stats)
 
 
@@ -104,10 +106,12 @@ def preset_character(name, role, dispersion=0):
     '''
 
     def create_item(character_id, **item):
-        Items.objects.create(
+        item = Items.objects.create(
             character_id=character_id,
             **item
         )
+
+        return item.as_json()
 
     stats_factory = StatsFactory()
     melee_weapon_factory = MeleeWeaponFactory()
@@ -122,16 +126,16 @@ def preset_character(name, role, dispersion=0):
     # создание моделей для character
 
     ROLES = {
-        'FIXER': 1,
-        'ROCKERBOY': 2,
-        'SOLO': 3,
-        'NETRUNNER': 4,
-        'NOMAD': 5,
-        'TECH': 6,
-        'COP': 7,
-        'CORPORATE': 8,
-        'MEDIC': 9,
-        'JOUNALIST': 10,
+        'FIXER': 'FIXER',
+        'ROCKERBOY': 'ROCKERBOY',
+        'SOLO': 'SOLO',
+        'NETRUNNER': 'NETRUNNER',
+        'NOMAD': 'NOMAD',
+        'TECH': 'TECH',
+        'COP': 'COP',
+        'CORPORATE': 'CORPORATE',
+        'MEDIC': 'MEDIC',
+        'JOUNALIST': 'JOUNALIST',
     }
 
     character_new = Character.objects.create(
@@ -149,7 +153,7 @@ def preset_character(name, role, dispersion=0):
     )
 
     inventory = [create_item(character_new.id, **item)
-                 for item in preset_inventory]
+                 for item in ITEMS_PRESETS[role]]
 
     stats_new = Stats.objects.create(
         character_id=character_new.id,
@@ -201,22 +205,25 @@ def preset_character(name, role, dispersion=0):
         personality=dict_character['life_path']['personality'],
     )
 
+    def install_implants_presets(inventory=inventory):
+        slots = {}
+        for item in inventory:
+            if item.get('installed'):
+                slots[item['slot']] = Items.objects.get(id=item['item_id'])
+        return slots
+
     implant_slots_new = ImplantSlots.objects.create(
-        character_id=character_new.id,
-        # сделать генерацию по пресетам для ролей
-        # brain=None,
-        # left_eye=None,
-        # right_eye=None,
-        # hearing=None,
-        # leather=None,
-        # heart=None,
-        # left_hand=None,
-        # right_hand=None,
-        # left_leg=None,
-        # right_leg=None,
+        character_id=character_new.id, **install_implants_presets()
     )
 
-    # return core_character.as_json()
+    armor_new = Armor.objects.create(
+        character_id=character_new.id,
+        head_level=ARMOR_PRESETS[role]['head'],
+        head_wear=ARMOR_PRESETS[role]['head_wear'],
+        body_level=ARMOR_PRESETS[role]['body'],
+        body_wear=ARMOR_PRESETS[role]['body_wear'],
+    )
+
     return character_new.as_json()
 
 

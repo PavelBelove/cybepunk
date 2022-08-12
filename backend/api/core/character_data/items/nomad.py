@@ -1,0 +1,58 @@
+from core.character_data.items.item_options import ITEM_TYPE, IMPLANT_SLOTS, MASS, HANDS
+
+
+nomad_items = [
+    {
+        'item_type': ITEM_TYPE['gun'],
+        'name': 'Very Heavy Pistol',
+        'weight': MASS['medium'],
+        'hands': HANDS['one'],
+        'price': 100,
+        'is_hidden': False,
+        'dices': 4,
+        'dice_type': 6,
+        'ammo': 10,
+        'max_ammo': 10,
+    },
+    {
+        'item_type': ITEM_TYPE['gun'],
+        'name': 'Shotgun',
+        'weight': MASS['heavy'],
+        'hands': HANDS['two'],
+        'price': 300,
+        'is_hidden': False,
+        'dices': 5,
+        'dice_type': 6,
+        'ammo': 5,
+        'max_ammo': 5,
+    },
+    {
+        'item_type': ITEM_TYPE['implanted_weapon'],
+        'name': 'Rippers',
+        'weight': MASS['implant'],
+        'installed': True,
+        'slot': IMPLANT_SLOTS['left_hand'],
+        'price': 200,
+        'is_hidden': True,
+        'dices': 2,
+        'dice_type': 6,
+    },
+    {
+        'item_type': ITEM_TYPE['modifier_implants'],
+        'name': 'Cyberoptics Low Light',
+        'weight': MASS['implant'],
+        'installed': True,
+        'slot': IMPLANT_SLOTS['right_eye'],
+        'price': 250,
+        'is_hidden': True,
+        'dices': 2,
+        'dice_type': 6,
+    },
+    {
+        'item_type': ITEM_TYPE['subject'],
+        'name': 'Groundcar',
+        'weight': MASS['heavy'],
+        'price': 300,
+        'is_hidden': False,
+    },
+]

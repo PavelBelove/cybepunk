@@ -30,6 +30,7 @@ class Stats(models.Model):
     def as_json(self):
         u'''Returns Model as JSON'''
         return dict(
+            stats_id=self.id,
             intel=self.intel,
             ref=self.ref,
             dex=self.dex,
@@ -84,7 +85,7 @@ class Skills(models.Model):
     def as_json(self):
         u'''Returns Model as JSON'''
         return dict(
-            # skills_id=self.skills_id,
+            skills_id=self.id,
             brawling=self.brawling,
             evasion=self.evasion,
             marksmanship=self.marksmanship,
@@ -121,96 +122,96 @@ class LifePath(models.Model):
         verbose_name = "Жизненный путь"
         verbose_name_plural = "Жизненные пути"
 
-    FAMILY = (
-        (1, 'Ваша семья потеряла всё из-за предательства.'),
-        (2, 'Ваша семья потеряла всё из-за плохой организации.'),
-        (3, 'Вашу семью изгнали или иным способом лишили родного дома/страны/корпорации.'),
-        (4, 'Вся ваша семья в тюрьме, только вы остались на свободе.'),
-        (5, 'Ваша семья исчезла. Вы остались один.'),
-        (6, 'Всю вашу семью убили, вы единственный выжили.'),
-        (7, 'Ваша семья давно участвует в заговоре или вступила в тайную организацию, такую как преступный клан или группа революционеров.'),
-        (8, 'Вашу семью разбросало по миру из-за ударов судьбы.'),
-        (9, 'Ваша семья уже несколько поколений страдает от давней вражды.'),
-        (10, 'Вам достались в наследство семейные долги. Придётся выплатить их, прежде чем вы начнёте жить собственной жизнью.'),
-    )
+    # FAMILY = (
+    #     (1, 'Ваша семья потеряла всё из-за предательства.'),
+    #     (2, 'Ваша семья потеряла всё из-за плохой организации.'),
+    #     (3, 'Вашу семью изгнали или иным способом лишили родного дома/страны/корпорации.'),
+    #     (4, 'Вся ваша семья в тюрьме, только вы остались на свободе.'),
+    #     (5, 'Ваша семья исчезла. Вы остались один.'),
+    #     (6, 'Всю вашу семью убили, вы единственный выжили.'),
+    #     (7, 'Ваша семья давно участвует в заговоре или вступила в тайную организацию, такую как преступный клан или группа революционеров.'),
+    #     (8, 'Вашу семью разбросало по миру из-за ударов судьбы.'),
+    #     (9, 'Ваша семья уже несколько поколений страдает от давней вражды.'),
+    #     (10, 'Вам достались в наследство семейные долги. Придётся выплатить их, прежде чем вы начнёте жить собственной жизнью.'),
+    # )
 
-    MOTIVATION = (
-        (1, 'Деньги'),
-        (2, 'Честь'),
-        (3, 'Данное вами слово'),
-        (4, 'Честность'),
-        (5, 'Знания'),
-        (6, 'Месть'),
-        (7, 'Любовь'),
-        (8, 'Власть'),
-        (9, 'Удовольствие'),
-        (10, 'Дружба'),
-    )
+    # MOTIVATION = (
+    #     (1, 'Деньги'),
+    #     (2, 'Честь'),
+    #     (3, 'Данное вами слово'),
+    #     (4, 'Честность'),
+    #     (5, 'Знания'),
+    #     (6, 'Месть'),
+    #     (7, 'Любовь'),
+    #     (8, 'Власть'),
+    #     (9, 'Удовольствие'),
+    #     (10, 'Дружба'),
+    # )
 
-    GOALS = (
-        (1, 'Избавиться от дурной репутации.'),
-        (2, 'Добиться власти и влияния.'),
-        (3, 'Выбраться с Улицы, чего бы это ни стоило.'),
-        (4, 'Причинить боль и страдания всем, кто перешёл вам дорогу.'),
-        (5, 'Избавиться от прошлого и постараться забыть о нём.'),
-        (6, 'Выследить тех, кто испортил вам жизнь, и призвать их к ответу.'),
-        (7, 'Получить то, что принадлежит вам по праву.'),
-        (8, 'По возможности спасти пострадавших членов семьи.'),
-        (9, 'Добиться славы и признания.'),
-        (10, 'Сделать так, чтобы вас боялись и уважали.'),
-    )
+    # GOALS = (
+    #     (1, 'Избавиться от дурной репутации.'),
+    #     (2, 'Добиться власти и влияния.'),
+    #     (3, 'Выбраться с Улицы, чего бы это ни стоило.'),
+    #     (4, 'Причинить боль и страдания всем, кто перешёл вам дорогу.'),
+    #     (5, 'Избавиться от прошлого и постараться забыть о нём.'),
+    #     (6, 'Выследить тех, кто испортил вам жизнь, и призвать их к ответу.'),
+    #     (7, 'Получить то, что принадлежит вам по праву.'),
+    #     (8, 'По возможности спасти пострадавших членов семьи.'),
+    #     (9, 'Добиться славы и признания.'),
+    #     (10, 'Сделать так, чтобы вас боялись и уважали.'),
+    # )
 
-    FRIENDS = (
-        (1, 'Как старший брат или сестра'),
-        (2, 'Как младший брат или сестра'),
-        (3, 'Учитель или наставник'),
-        (4, 'Партнёр или коллега'),
-        (5, 'Прежняя любовь'),
-        (6, 'Бывший враг'),
-        (7, 'Как отец или мать'),
-        (8, 'Друг детства'),
-        (9, 'Родственник'),
-        (10, 'Человек, разделяющий ваши интересы'),
-    )
+    # FRIENDS = (
+    #     (1, 'Как старший брат или сестра'),
+    #     (2, 'Как младший брат или сестра'),
+    #     (3, 'Учитель или наставник'),
+    #     (4, 'Партнёр или коллега'),
+    #     (5, 'Прежняя любовь'),
+    #     (6, 'Бывший враг'),
+    #     (7, 'Как отец или мать'),
+    #     (8, 'Друг детства'),
+    #     (9, 'Родственник'),
+    #     (10, 'Человек, разделяющий ваши интересы'),
+    # )
 
-    ENEMIES = (
-        (1, 'Бывший друг'),
-        (2, 'Бывший любовник/любовница'),
-        (3, 'Родственник'),
-        (4, 'Враг с детства'),
-        (5, 'Человек, работающий на вас'),
-        (6, 'Человек, на которого вы работаете'),
-        (7, 'Партнёр или коллега'),
-        (8, 'Кто-то из банды бустеров'),
-        (9, 'Менеджер из корпорации'),
-        (10, 'Чиновник из правительства'),
-    )
+    # ENEMIES = (
+    #     (1, 'Бывший друг'),
+    #     (2, 'Бывший любовник/любовница'),
+    #     (3, 'Родственник'),
+    #     (4, 'Враг с детства'),
+    #     (5, 'Человек, работающий на вас'),
+    #     (6, 'Человек, на которого вы работаете'),
+    #     (7, 'Партнёр или коллега'),
+    #     (8, 'Кто-то из банды бустеров'),
+    #     (9, 'Менеджер из корпорации'),
+    #     (10, 'Чиновник из правительства'),
+    # )
 
-    ROMANCE = (
-        (1, 'Ваш любимый(ая) погиб от несчастного случая.'),
-        (2, 'Ваш любимый(ая) исчез при загадочных обстоятельствах.'),
-        (3, 'Просто не срослось.'),
-        (4, 'Между вами встали личные интересы или вендетта.'),
-        (5, 'Вашего любимого(ую) похитили.'),
-        (6, 'Ваш любимый(ая) сошёл с ума.'),
-        (7, 'Ваш любимый(ая) покончил с собой.'),
-        (8, 'Ваш любимый(ая) погиб в бою.'),
-        (9, 'Соперник увёл у вас партнёра.'),
-        (10, 'Ваш любимый(ая) в тюрьме или в изгнании.'),
-    )
+    # ROMANCE = (
+    #     (1, 'Ваш любимый(ая) погиб от несчастного случая.'),
+    #     (2, 'Ваш любимый(ая) исчез при загадочных обстоятельствах.'),
+    #     (3, 'Просто не срослось.'),
+    #     (4, 'Между вами встали личные интересы или вендетта.'),
+    #     (5, 'Вашего любимого(ую) похитили.'),
+    #     (6, 'Ваш любимый(ая) сошёл с ума.'),
+    #     (7, 'Ваш любимый(ая) покончил с собой.'),
+    #     (8, 'Ваш любимый(ая) погиб в бою.'),
+    #     (9, 'Соперник увёл у вас партнёра.'),
+    #     (10, 'Ваш любимый(ая) в тюрьме или в изгнании.'),
+    # )
 
-    PERSONALITY = (
-        (1, 'Застенчивый и скрытный'),
-        (2, 'Неуживчивый, жестокий, непокорный'),
-        (3, 'Высокомерный, гордый и замкнутый'),
-        (4, 'Непостоянный, безрассудный и упрямый'),
-        (5, 'Придирчивый, капризный и раздражительный'),
-        (6, 'Серьёзный и постоянный'),
-        (7, 'Глуповатый и легкомысленный'),
-        (8, 'Подлый и лживый'),
-        (9, 'Умный и отстранённый'),
-        (10, 'Дружелюбный и общительный'),
-    )
+    # PERSONALITY = (
+    #     (1, 'Застенчивый и скрытный'),
+    #     (2, 'Неуживчивый, жестокий, непокорный'),
+    #     (3, 'Высокомерный, гордый и замкнутый'),
+    #     (4, 'Непостоянный, безрассудный и упрямый'),
+    #     (5, 'Придирчивый, капризный и раздражительный'),
+    #     (6, 'Серьёзный и постоянный'),
+    #     (7, 'Глуповатый и легкомысленный'),
+    #     (8, 'Подлый и лживый'),
+    #     (9, 'Умный и отстранённый'),
+    #     (10, 'Дружелюбный и общительный'),
+    # )
     character = models.ForeignKey(
         'Character', verbose_name='character', on_delete=models.CASCADE)
     family = models.CharField(verbose_name='family', max_length=2048)
@@ -225,6 +226,7 @@ class LifePath(models.Model):
         u'''Returns Model as JSON'''
         return dict(
             # life_path_id=self.life_path_id,
+            life_path_id=self.id,
             family=self.family,
             motivation=self.motivation,
             goals=self.goals,
@@ -238,28 +240,38 @@ class LifePath(models.Model):
     #     return self.name
 
 
-# class Ammo(models.Model):
-#     u'''Model Class'''
+class Armor(models.Model):
+    u'''Model Class'''
 
-#     class Meta:
-#         u'''Model Meta'''
-#         verbose_name = "Боеприпас"
-#         verbose_name_plural = "Боеприпасы"
+    class Meta:
+        u'''Model Meta'''
+        verbose_name = "Броня"
+        verbose_name_plural = "Брони"
 
-#     name = models.CharField(verbose_name='hit_points', max_length=64)
-#     price = models.IntegerField(verbose_name='intel', default=5)
-#     quantyty = models.IntegerField(verbose_name='intel', default=12)
+    character = models.ForeignKey(
+        'Character', verbose_name='character', on_delete=models.CASCADE)
+    head_level = models.IntegerField(
+        verbose_name='head_level', default=5, null=True)
+    head_wear = models.IntegerField(
+        verbose_name='head_wear', default=5, null=True)
+    body_level = models.IntegerField(
+        verbose_name='body_level', default=5, null=True)
+    body_wear = models.IntegerField(
+        verbose_name='body_wear', default=5, null=True)
 
-#     def as_json(self):
-#         u'''Returns Model as JSON'''
-#         return dict(
-#             name=self.name,
-#             price=self.price,
-#             quantyty=self.quantyty,
-#         )
+    def as_json(self):
+        u'''Returns Model as JSON'''
+        return dict(
+            armor_id=self.id,
+            head_level=self.head_level,
+            head_wear=self.head_wear,
+            body_level=self.body_level,
+            body_wear=self.body_wear,
+        )
 
-#     def __str__(self):
-#         return self.name
+    def __str__(self):
+        return self.name
+
 
 class Items(models.Model):
     u'''Model Class'''
@@ -292,25 +304,41 @@ class Items(models.Model):
     AMMO = zip(range(1, 30), range(1, 30))
 
     SLOTS = (
-        (0, 'brain'),
-        (1, 'left_eye'),
-        (2, 'right_eye'),
-        (3, 'hearing'),
-        (4, 'leather'),
-        (5, 'heart'),
-        (6, 'left_hand'),
-        (7, 'right_hand'),
-        (8, 'left_leg'),
-        (9, 'right_leg'),
+        ('brain', 'brain'),
+        ('left_eye', 'left_eye'),
+        ('right_eye', 'right_eye'),
+        ('hearing', 'hearing'),
+        ('leather', 'leather'),
+        ('heart', 'heart'),
+        ('left_hand', 'left_hand'),
+        ('right_hand', 'right_hand'),
+        ('left_leg', 'left_leg'),
+        ('right_leg', 'right_leg'),
     )
 
-    name = models.CharField(verbose_name='hit_points', max_length=64)
+    ITEM_TYPE = (
+        (0, 'subject'),
+        (1, 'melee_weapon'),
+        (2, 'gun'),
+        (3, 'disposable_weapon'),
+        (4, 'implanted_weapon'),
+        (5, 'modifier_implants'),
+        (6, 'loot_implants'),
+        (7, 'pharmaceuticals'),
+        (8, 'electronics'),
+        (9, 'coins'),
+    )
+
+    name = models.CharField(verbose_name='name', max_length=64)
+    item_type = models.IntegerField(
+        verbose_name='item_type', choices=ITEM_TYPE)
     character = models.ForeignKey(
         'Character', verbose_name='character', on_delete=models.CASCADE)
     weight = models.IntegerField(verbose_name='mass', choices=MASS)
     price = models.IntegerField(verbose_name='intel', default=50)
-    installed = models.BooleanField(default=True)
-    slot = models.IntegerField(verbose_name='mass', choices=SLOTS, null=True)
+    installed = models.BooleanField(default=False)
+    slot = models.CharField(verbose_name='mass',
+                            max_length=64, choices=SLOTS, null=True)
     humanity_penalty = models.CharField(
         verbose_name='hit_points', max_length=64, null=True)
     skill_modifier = models.CharField(
@@ -327,7 +355,9 @@ class Items(models.Model):
     def as_json(self):
         u'''Returns Model as JSON'''
         return dict(
+            item_id=self.id,
             name=self.name,
+            item_type=self.item_type,
             weight=self.weight,
             price=self.price,
             installed=self.installed,
@@ -382,16 +412,17 @@ class ImplantSlots(models.Model):
     def as_json(self):
         u'''Returns Model as JSON'''
         return dict(
-            brain=self.brain,
-            left_eye=self.left_eye,
-            right_eye=self.right_eye,
-            hearing=self.hearing,
-            leather=self.leather,
-            heart=self.heart,
-            left_hand=self.left_hand,
-            right_hand=self.right_hand,
-            left_leg=self.left_leg,
-            right_leg=self.right_leg,
+            implant_slots_id=self.id,
+            brain=self.brain.as_json() if self.brain else None,
+            left_eye=self.left_eye.as_json() if self.left_eye else None,
+            right_eye=self.right_eye.as_json() if self.right_eye else None,
+            hearing=self.hearing.as_json() if self.hearing else None,
+            leather=self.leather.as_json() if self.leather else None,
+            heart=self.heart.as_json() if self.heart else None,
+            left_hand=self.left_hand.as_json() if self.left_hand else None,
+            right_hand=self.right_hand.as_json() if self.right_hand else None,
+            left_leg=self.left_leg.as_json() if self.left_leg else None,
+            right_leg=self.right_leg.as_json() if self.right_leg else None,
         )
 
     def __str__(self):
@@ -405,22 +436,22 @@ class Character(models.Model):
         verbose_name_plural = "Персонажи"
 
     ROLES = (
-        (1, 'FIXER'),
-        (2, 'ROCKERBOY'),
-        (3, 'SOLO'),
-        (4, 'NETRUNNER'),
-        (5, 'NOMAD'),
-        (6, 'TECH'),
-        (7, 'COP'),
-        (8, 'CORPORATE'),
-        (9, 'MEDIC'),
-        (10, 'JOUNALIST'),
+        ('FIXER', 'FIXER'),
+        ('ROCKERBOY', 'ROCKERBOY'),
+        ('SOLO', 'SOLO'),
+        ('NETRUNNER', 'NETRUNNER'),
+        ('NOMAD', 'NOMAD'),
+        ('TECH', 'TECH'),
+        ('COP', 'COP'),
+        ('CORPORATE', 'CORPORATE'),
+        ('MEDIC', 'MEDIC'),
+        ('JOUNALIST', 'JOUNALIST'),
     )
     user = models.ForeignKey(User, verbose_name='user',
                              on_delete=models.CASCADE, null=True)
     name = models.CharField(verbose_name='name',
                             max_length=64, default='Punk')
-    role = models.IntegerField(verbose_name='role', choices=ROLES)
+    role = models.CharField(verbose_name='role', choices=ROLES, max_length=16)
 
     hit_points = models.CharField(verbose_name='hit_points', max_length=64)
     max_hit_points = models.CharField(
@@ -436,6 +467,7 @@ class Character(models.Model):
         u'''Returns Model as JSON'''
         character_id = self.id
         return dict(
+            character_id=self.id,
             user=self.user,
             name=self.name,
             role=self.role,

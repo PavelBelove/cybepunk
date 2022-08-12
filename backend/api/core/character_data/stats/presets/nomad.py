@@ -1,4 +1,4 @@
-nomand_presets = {
+nomad_presets = {
     1: {
         "intelligence": 6,
         "reflexes":  10,

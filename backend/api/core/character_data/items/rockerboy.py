@@ -1,22 +1,22 @@
 from core.character_data.items.item_options import ITEM_TYPE, IMPLANT_SLOTS, MASS, HANDS
 
 
-fixer_items = [
+rocker_items = [
     {
         'item_type': ITEM_TYPE['gun'],
-        'name': 'Heavy Pistol',
-        'weight': MASS['light'],
+        'name': 'Very Heavy Pistol',
+        'weight': MASS['medium'],
         'hands': HANDS['one'],
         'price': 100,
         'is_hidden': False,
-        'dices': 3,
+        'dices': 4,
         'dice_type': 6,
         'ammo': 10,
         'max_ammo': 10,
     },
     {
         'item_type': ITEM_TYPE['implanted_weapon'],
-        'name': 'Medium SMG',
+        'name': 'Slice & Dice',
         'weight': MASS['implant'],
         'hands': HANDS['one'],
         'installed': True,
@@ -38,22 +38,11 @@ fixer_items = [
         'dice_type': 6,
     },
     {
-        'item_type': ITEM_TYPE['modifier_implants'],
-        'name': 'Cyberoptics Low Light',
-        'weight': MASS['implant'],
-        'installed': True,
-        'slot': IMPLANT_SLOTS['right_eye'],
-        'price': 250,
-        'is_hidden': True,
-        'dices': 2,
-        'dice_type': 6,
-    },
-    {
-        'item_type': ITEM_TYPE['coins'],
-        'name': 'Coins',
+        'item_type': ITEM_TYPE['subject'],
+        'name': 'guitar',
         'weight': MASS['light'],
-        'price': 100,
-        'is_hidden': True,
+        'price': 300,
+        'is_hidden': False,
     },
     {
         'item_type': ITEM_TYPE['electronics'],
@@ -62,5 +51,4 @@ fixer_items = [
         'price': 100,
         'is_hidden': True,
     },
-
 ]
