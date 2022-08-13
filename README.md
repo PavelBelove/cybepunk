@@ -4,4 +4,4 @@ API for playing cyberpunk
 
 
 Подгрузка пути 
-export PYTHONPATH="${PYTHONPATH}:/home/pavel/cyberpunk/"
+export PYTHONPATH="${PYTHONPATH}:/home/pavel/cyberpunk/backend/api"

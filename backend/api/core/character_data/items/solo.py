@@ -44,8 +44,6 @@ solo_items = [
         'slot': IMPLANT_SLOTS['brain'],
         'price': 250,
         'is_hidden': True,
-        'dices': 2,
-        'dice_type': 6,
     },
     {
         'item_type': ITEM_TYPE['modifier_implants'],

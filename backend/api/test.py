@@ -25,11 +25,11 @@ characters = [
 
 enemies = [
     character_factory.create_random_character(
-        name="Alan Silverstry", role='FIXER'),
+        role='FIXER'),
     character_factory.create_random_character(
-        name="Michael Mc Cann", role='FIXER'),
+        role='FIXER'),
     character_factory.create_random_character(
-        name="John Travolta", role='FIXER'),
+        role='FIXER'),
 ]
 
 party = Party(characters)
@@ -48,11 +48,11 @@ EQUIP_CHOICE = 3
 
 
 def get_character_weapons_list(character):
-    return [item for item in character._inventory if item.get('in_hands')]
+    return [item for item in character._inventory if item.in_hands is not None or (item.installed and item.dices)]
 
 
 def get_character_weapons_choices_text(weapons_list):
-    return [f'{idx}. {weapon["name"]}. Dice: {weapon["dices"]}d{weapon["dice_type"]}. Ammo: {weapon["ammo"]} \n' for idx, weapon in enumerate(weapons_list)]
+    return [f'{idx}. {weapon.name}. Dice: {weapon.dices}d{weapon.dice_type}. Ammo: {weapon.ammo} \n' for idx, weapon in enumerate(weapons_list)]
 
 
 def get_characters_move_text(character):
@@ -60,7 +60,7 @@ def get_characters_move_text(character):
 
 
 def get_weapon_chosen_text(equipped_weapon_list, weapon_choice):
-    return f'Выбрано оружие: {equipped_weapon_list[weapon_choice]["name"]}'
+    return f'Выбрано оружие: {equipped_weapon_list[weapon_choice].name}'
 
 
 def get_enemy_names_list(enemies_list):
@@ -128,7 +128,7 @@ def run_game():
                     )
 
                     print(
-                        f'Персонаж {character._name} атакует {chosen_enemy._name} из оружия {chosen_weapon["name"]}\n')
+                        f'Персонаж {character._name} атакует {chosen_enemy._name} из оружия {chosen_weapon.name}\n')
                     print(f'{chosen_enemy._name} получает урон {damage}\n' if damage >
                           0 else f'{chosen_enemy._name} уклоняется от атаки\n')
 
@@ -159,7 +159,7 @@ def run_game():
                 )
 
                 print(
-                    f'Персонаж {character._name} атакует {chosen_character._name} из оружия {chosen_weapon["name"]}\n')
+                    f'Персонаж {character._name} атакует {chosen_character._name} из оружия {chosen_weapon.name}\n')
                 print(f'{chosen_character._name} получает урон {damage}\n' if damage >
                       0 else f'{chosen_character._name} уклоняется от атаки\n')
 

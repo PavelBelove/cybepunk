@@ -7,6 +7,7 @@ rocker_items = [
         'name': 'Very Heavy Pistol',
         'weight': MASS['medium'],
         'hands': HANDS['one'],
+        'in_hands': True,
         'price': 100,
         'is_hidden': False,
         'dices': 4,
@@ -34,8 +35,6 @@ rocker_items = [
         'slot': IMPLANT_SLOTS['brain'],
         'price': 250,
         'is_hidden': True,
-        'dices': 2,
-        'dice_type': 6,
     },
     {
         'item_type': ITEM_TYPE['subject'],

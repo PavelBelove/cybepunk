@@ -1,8 +1,10 @@
+from operator import ge
 import rich
 
 
 from rich import print
 from enum import Enum
+from core.classes.items.armor import Armor
 from core.classes.character.life_path_enums import LifePath
 from core.utils.dises import get_random_d10, get_random_d6
 
@@ -38,7 +40,7 @@ class Actor:
 
 
 class Character(Actor):
-    def __init__(self, name, role, stats: Stats, skills: Skills, life_path: LifePath) -> None:
+    def __init__(self, name, role, stats: Stats, skills: Skills, life_path: LifePath, inventory: list, armor: Armor) -> None:
         super().__init__(name)
         self._role = role
         self._skills = skills
@@ -48,94 +50,8 @@ class Character(Actor):
         self._max_hit_points = hit_points_dict[f'{self._stats._body}']['initial_hit_points']
         # self._left_hand_weapon = None
         # self._right_hand_weapon = None
-        self._inventory = [
-            {
-                'item_type': ITEM_TYPE['gun'],
-                'name': 'Heavy Pistol',
-                'weight': MASS['light'],
-                'hands': HANDS['one'],
-                'price': 100,
-                'is_hidden': False,
-                'dices': 3,
-                'dice_type': 6,
-                'ammo': 10,
-                'max_ammo': 10,
-                'in_hands': True,
-            },
-            {
-                'item_type': ITEM_TYPE['gun'],
-                'name': 'Light Pistol',
-                'weight': MASS['light'],
-                'hands': HANDS['one'],
-                'price': 100,
-                'is_hidden': False,
-                'dices': 2,
-                'dice_type': 4,
-                'ammo': 10,
-                'max_ammo': 10,
-                'in_hands': True,
-            },
-            {
-                'item_type': ITEM_TYPE['gun'],
-                'name': 'Very Heavy Pistol',
-                'weight': MASS['medium'],
-                'hands': HANDS['one'],
-                'price': 100,
-                'is_hidden': False,
-                'dices': 4,
-                'dice_type': 6,
-                'ammo': 10,
-                'max_ammo': 10,
-            },
-            {
-                'item_type': ITEM_TYPE['implanted_weapon'],
-                'name': 'Medium SMG',
-                'weight': MASS['implant'],
-                'hands': HANDS['one'],
-                'installed': True,
-                'slot': IMPLANT_SLOTS['right_hand'],
-                'price': 200,
-                'is_hidden': True,
-                'dices': 2,
-                'dice_type': 6,
-            },
-            {
-                'item_type': ITEM_TYPE['modifier_implants'],
-                'name': 'Cyberaudio',
-                'weight': MASS['implant'],
-                'installed': True,
-                'slot': IMPLANT_SLOTS['brain'],
-                'price': 250,
-                'is_hidden': True,
-                'dices': 2,
-                'dice_type': 6,
-            },
-            {
-                'item_type': ITEM_TYPE['modifier_implants'],
-                'name': 'Cyberoptics Low Light',
-                'weight': MASS['implant'],
-                'installed': True,
-                'slot': IMPLANT_SLOTS['right_eye'],
-                'price': 250,
-                'is_hidden': True,
-                'dices': 2,
-                'dice_type': 6,
-            },
-            {
-                'item_type': ITEM_TYPE['coins'],
-                'name': 'Coins',
-                'weight': MASS['light'],
-                'price': 100,
-                'is_hidden': True,
-            },
-            {
-                'item_type': ITEM_TYPE['electronics'],
-                'name': 'Agent',
-                'weight': MASS['light'],
-                'price': 100,
-                'is_hidden': True,
-            },
-        ]
+        self._inventory = inventory
+        self._armor = armor
 
     # def set_weapon(self, right_hand_weapon, left_hand_weapon=None):
     #     # add logic for two-handed weapons
@@ -152,24 +68,31 @@ class Character(Actor):
         weapon,
         dice_enemy: int,
     ) -> int:
-        if isinstance(weapon, Guns):
+        if weapon.item_type == 2:  # Gun
             weapon_skills = self._skills._marksmanship
-        elif isinstance(weapon, MeleeWeapon):
+        elif weapon.item_type == 1:  # Melee
             weapon_skills = self._skills._melee_weapon
         else:
             weapon_skills = self._skills._athletics
 
         dices = []
-        for i in range(weapon["dices"]):  # переделать на объекты
-            if weapon["dice_type"] == 6:  # переделать на объекты
+        for i in range(weapon.dices):
+            print(weapon.dice_type)
+            if weapon.dice_type == 6:
                 dices.append(get_random_d6())
             else:
                 dices.append(get_random_d10())
 
-        character_damage = self._stats._dex + weapon_skills + sum(dices)
-        enemy_defence = enemy._stats._dex + enemy._skills._evasion + dice_enemy
+        # Сделать выбор голова или тело для атаки
+        character_damage = weapon_skills + sum(dices) - enemy._armor.body
+        character_accuracy = weapon_skills + get_random_d10()
+        enemy_defence = enemy._skills._evasion + get_random_d10()
 
-        return character_damage if character_damage > enemy_defence else 0
+        if character_accuracy > enemy_defence:
+            enemy._armor.body -= 1
+            return character_damage
+
+        return 0
 
     def as_json(self):
         return {

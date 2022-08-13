@@ -7,7 +7,7 @@ fixer_items = [
         'name': 'Heavy Pistol',
         'weight': MASS['light'],
         'hands': HANDS['one'],
-        'in hands': True
+        'in_hands': True,
         'price': 100,
         'is_hidden': False,
         'dices': 3,
@@ -35,8 +35,6 @@ fixer_items = [
         'slot': IMPLANT_SLOTS['brain'],
         'price': 250,
         'is_hidden': True,
-        'dices': 2,
-        'dice_type': 6,
     },
     {
         'item_type': ITEM_TYPE['modifier_implants'],
@@ -46,8 +44,6 @@ fixer_items = [
         'slot': IMPLANT_SLOTS['right_eye'],
         'price': 250,
         'is_hidden': True,
-        'dices': 2,
-        'dice_type': 6,
     },
     {
         'item_type': ITEM_TYPE['coins'],
