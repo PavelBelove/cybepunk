@@ -6,6 +6,7 @@ solo_items = [
         'name': 'Assault Rifle',
         'weight': MASS['heavy'],
         'hands': HANDS['two'],
+        'in_hands': True,
         'price': 300,
         'is_hidden': False,
         'dices': 5,

@@ -7,6 +7,7 @@ fixer_items = [
         'name': 'Heavy Pistol',
         'weight': MASS['light'],
         'hands': HANDS['one'],
+        'in hands': True
         'price': 100,
         'is_hidden': False,
         'dices': 3,

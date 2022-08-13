@@ -10,7 +10,30 @@ from core.factories.weapon.guns_factory import GunFactory, GunType
 
 
 class CharacterFactory:
-    def __init__(self, stats_factory: StatsFactory, life_path_factory: LifePathFactory, weapon_factory: WeaponFactory):
+    @staticmethod
+    def build_character_factory():
+        stats_factory = StatsFactory()
+        melee_weapon_factory = MeleeWeaponFactory()
+        gun_factory = GunFactory()
+        weapon_factory = WeaponFactory(
+            melee_weapon_factory,
+            gun_factory
+        )
+        life_path_factory = LifePathFactory()
+        character_factory = CharacterFactory(
+            stats_factory,
+            life_path_factory,
+            weapon_factory
+        )
+
+        return character_factory
+
+    def __init__(
+        self,
+        stats_factory: StatsFactory,
+        life_path_factory: LifePathFactory,
+        weapon_factory: WeaponFactory
+    ):
         self._stats_factory = stats_factory
         self._weapon_factory = weapon_factory
         self._life_path_factory = life_path_factory
@@ -127,13 +150,13 @@ class CharacterFactory:
             MeleeWeaponType.SLICE_AND_DICE)
         heavy_pistol = self._weapon_factory.create(GunType.HEAVY_PISTOL)
 
-        fixer._inventory[slice_and_dice.id] = slice_and_dice
-        fixer._inventory[heavy_pistol.id] = heavy_pistol
+        # fixer._inventory[slice_and_dice.id] = slice_and_dice
+        # fixer._inventory[heavy_pistol.id] = heavy_pistol
 
-        fixer.set_weapon(
-            slice_and_dice,
-            heavy_pistol
-        )
+        # fixer.set_weapon(
+        #     slice_and_dice,
+        #     heavy_pistol
+        # )
 
         return fixer
 

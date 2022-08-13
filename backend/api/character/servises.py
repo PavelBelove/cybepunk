@@ -11,7 +11,7 @@ from core.factories.weapon.melee_weapon_factory import MeleeWeaponFactory
 
 from core.character_data.stats.stat_presets import STATS_PRESETS
 from core.character_data.items.inventory_presets import ITEMS_PRESETS
-from character.models import Armor, Character, ImplantSlots, Items, LifePath, Skills, Stats
+from character.models import Armor, Character, Hands, ImplantSlots, Items, LifePath, Skills, Stats
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse, JsonResponse
 from django.forms import model_to_dict
@@ -20,42 +20,6 @@ from rich import print
 
 
 User = get_user_model()
-
-preset_inventory = [
-    {
-        'name': 'small_knife',
-        'weight': 1,
-        # 'damage': '',
-        'hands': 1,
-        'price': 10,
-        # 'quality': '',
-        'is_hidden': True,
-        'dices': 3,
-        'dice_type': 6,
-    },
-    {
-        'name': 'machete',
-        'weight': 1,
-        # 'damage': '',
-        'hands': 1,
-        'price': 20,
-        # 'quality': '',
-        'is_hidden': False,
-        'dices': 3,
-        'dice_type': 6,
-    },
-    {
-        'name': 'Slice And Dice',
-        'weight': 0,
-        # 'damage': '',
-        'hands': 1,
-        'price': 20,
-        # 'quality': '',
-        'is_hidden': False,
-        'dices': 2,
-        'dice_type': 6,
-    }
-]
 
 
 def preset_stats(role_presets, dispersion=0):
@@ -113,6 +77,27 @@ def preset_character(name, role, dispersion=0):
 
         return item.as_json()
 
+    def install_implants_presets(inventory):
+        slots = {}
+        for item in inventory:
+            if item.get('installed'):
+                slots[item['slot']] = Items.objects.get(id=item['item_id'])
+        return slots
+
+    def take_items(inventory):
+        hands = {}
+        for item in inventory:
+            if item.get('in_hands'):
+                if item.get('hands') == 1:
+                    hands['right_hand'] = Items.objects.get(id=item['item_id'])
+                    right_hand_flag = True
+                elif item.get('hands') == 1 and right_hand_flag:
+                    hands['left_hand'] = Items.objects.get(id=item['item_id'])
+                elif item.get('hands') == 2:
+                    hands['right_hand'] = Items.objects.get(id=item['item_id'])
+                    hands['left_hand'] = Items.objects.get(id=item['item_id'])
+        return hands
+
     stats_factory = StatsFactory()
     melee_weapon_factory = MeleeWeaponFactory()
     gun_factory = GunFactory()
@@ -147,8 +132,8 @@ def preset_character(name, role, dispersion=0):
         # stats=stats_new,
         hit_points=dict_character['hit_points'],
         max_hit_points=dict_character['max_hit_points'],
-        left_hand_weapon=dict_character['left_hand_weapon'],
-        right_hand_weapon=dict_character['right_hand_weapon'],
+        # left_hand_weapon=dict_character['left_hand_weapon'],
+        # right_hand_weapon=dict_character['right_hand_weapon'],
         # inventory=dict_character['inventory'],
     )
 
@@ -205,15 +190,12 @@ def preset_character(name, role, dispersion=0):
         personality=dict_character['life_path']['personality'],
     )
 
-    def install_implants_presets(inventory=inventory):
-        slots = {}
-        for item in inventory:
-            if item.get('installed'):
-                slots[item['slot']] = Items.objects.get(id=item['item_id'])
-        return slots
-
     implant_slots_new = ImplantSlots.objects.create(
-        character_id=character_new.id, **install_implants_presets()
+        character_id=character_new.id, **install_implants_presets(inventory)
+    )
+
+    hands_new = Hands.objects.create(
+        character_id=character_new.id, **take_items(inventory)
     )
 
     armor_new = Armor.objects.create(

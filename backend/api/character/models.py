@@ -344,6 +344,7 @@ class Items(models.Model):
     skill_modifier = models.CharField(
         verbose_name='hit_points', max_length=64, null=True)
     hands = models.IntegerField(verbose_name='hands', choices=HANDS, null=True)
+    in_hands = models.BooleanField(default=False)
     is_hidden = models.BooleanField(default=False, null=True)
     dices = models.IntegerField(verbose_name='dises', choices=DISES, null=True)
     dice_type = models.IntegerField(
@@ -365,6 +366,7 @@ class Items(models.Model):
             humanity_penalty=self.humanity_penalty,
             skill_modifier=self.skill_modifier,
             hands=self.hands,
+            in_hands=self.in_hands,
             is_hidden=self.is_hidden,
             dices=self.dices,
             dice_type=self.dice_type,
@@ -374,6 +376,31 @@ class Items(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Hands(models.Model):
+
+    u'''Model Class'''
+
+    class Meta:
+        u'''Model Meta'''
+        verbose_name = "Рука"
+        verbose_name_plural = "Руки"
+
+    character = models.ForeignKey(
+        'Character', verbose_name='character', on_delete=models.CASCADE)
+    left_hand = models.ForeignKey(Items, verbose_name='left_hand',
+                                  related_name='Left', on_delete=models.CASCADE, null=True)
+    right_hand = models.ForeignKey(Items, verbose_name='right_hand',
+                                   related_name='Right', on_delete=models.CASCADE, null=True)
+
+    def as_json(self):
+        u'''Returns Model as JSON'''
+        return dict(
+            hands=self.id,
+            left_hand=self.left_hand,
+            right_hand=self.right_hand,
+        )
 
 
 class ImplantSlots(models.Model):
