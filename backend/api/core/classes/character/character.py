@@ -1,4 +1,5 @@
 from operator import ge
+from webbrowser import get
 import rich
 
 
@@ -53,10 +54,27 @@ class Character(Actor):
         self._inventory = inventory
         self._armor = armor
 
-    # def set_weapon(self, right_hand_weapon, left_hand_weapon=None):
-    #     # add logic for two-handed weapons
-    #     self._right_hand_weapon = right_hand_weapon
-    #     self._left_hand_weapon = left_hand_weapon
+    def skill_test(self, skill, complexity):
+        character_skill = self._skills[skill]
+        d10 = get_random_d10()
+        if d10 == 10:
+            critical_result = 'Критический успех'
+            d10 += get_random_d10()
+        elif d10 == 1:
+            critical_result = 'Критическая неудача'
+        else:
+            critical_result = ''
+
+        skill_test = True if character_skill + d10 >= complexity else False
+
+        skill_test_report = {
+            'character_skill': character_skill,
+            'd10': d10,
+            'skill_test': skill_test,
+            'critical_result': critical_result
+        }
+
+        return skill_test_report
 
     def throw_initiative_dice(self):
         '''Initiative = REF + 1d10'''
@@ -77,22 +95,45 @@ class Character(Actor):
 
         dices = []
         for i in range(weapon.dices):
-            print(weapon.dice_type)
             if weapon.dice_type == 6:
                 dices.append(get_random_d6())
             else:
                 dices.append(get_random_d10())
 
         # Сделать выбор голова или тело для атаки
+        d10_character = get_random_d10()
+        if d10_character == 10:
+            critical_result = 'Критический успех'
+            d10_character += get_random_d10()
+        elif d10_character == 1:
+            critical_result = 'Критическая неудача'
+        else:
+            critical_result = ''
+
         character_damage = weapon_skills + sum(dices) - enemy._armor.body
-        character_accuracy = weapon_skills + get_random_d10()
-        enemy_defence = enemy._skills._evasion + get_random_d10()
+        character_accuracy = weapon_skills + d10_character
+        enemy_defence = enemy._skills._evasion + dice_enemy
+
+        attack_report = {
+            'd10_enemy': dice_enemy,
+            'd10_character': d10_character,
+            'd6_dices': dices,
+            'character_damage': character_damage,
+            'character_accuracy': character_accuracy,
+            'enemy_defence': enemy_defence,
+            'critical_result': critical_result
+        }
 
         if character_accuracy > enemy_defence:
             enemy._armor.body -= 1
-            return character_damage
+            enemy._hit_points = int(enemy._hit_points) - character_damage
+            attack_report['damage'] = character_damage
+        else:
+            attack_report['damage'] = 0
 
-        return 0
+        attack_report['enemy_hit_points'] = int(enemy._hit_points)
+
+        return attack_report
 
     def as_json(self):
         return {
@@ -106,6 +147,7 @@ class Character(Actor):
             # 'left_hand_weapon': self._left_hand_weapon.as_json(),
             # 'right_hand_weapon': self._right_hand_weapon.as_json(),
             'inventory': [item.as_json() for item in self._inventory.values()],
+            'armor': self._armor.as_json(),
         }
 
 

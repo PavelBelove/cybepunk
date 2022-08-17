@@ -1,3 +1,4 @@
+from tkinter import N
 from rich import print
 from random import randint
 
@@ -52,7 +53,7 @@ def get_character_weapons_list(character):
 
 
 def get_character_weapons_choices_text(weapons_list):
-    return [f'{idx}. {weapon.name}. Dice: {weapon.dices}d{weapon.dice_type}. Ammo: {weapon.ammo} \n' for idx, weapon in enumerate(weapons_list)]
+    return [f'{idx}. {weapon.name}. Dice: {weapon.dices}d{weapon.dice_type}. Ammo: {weapon.ammo} \n' for idx, weapon in enumerate(weapons_list, start=1)]
 
 
 def get_characters_move_text(character):
@@ -64,7 +65,7 @@ def get_weapon_chosen_text(equipped_weapon_list, weapon_choice):
 
 
 def get_enemy_names_list(enemies_list):
-    return [f'{idx}. {enemy._name}: {enemy._hit_points}HP.' for idx, enemy in enumerate(enemies_list)]
+    return [f'{idx}. {enemy._name}: {enemy._hit_points} HP.' for idx, enemy in enumerate(enemies_list, start=1)]
 
 
 def get_enemy_chosen_text(enemies_list, chosen_enemy):
@@ -97,7 +98,7 @@ def run_game():
                                     equipped_weapon_list)
                             )
                         )
-                    )
+                    ) - 1
 
                     chosen_weapon = equipped_weapon_list[weapon_choice]
 
@@ -107,10 +108,10 @@ def run_game():
                     target_chosen = int(
                         input(
                             CHOOSE_TARGET +
-                            '\n'.join(get_enemy_names_list(
-                                enemies_party.characters))
+                            ('\n'.join(get_enemy_names_list(
+                                enemies_party.characters)) + '\n')
                         )
-                    )
+                    ) - 1
 
                     chosen_enemy = enemies_party.characters[target_chosen]
 
@@ -121,14 +122,24 @@ def run_game():
                         )
                     )
 
-                    damage = character.attack(
+                    report = character.attack(
                         chosen_enemy,
                         chosen_weapon,
                         get_random_d10()
                     )
+                    damage = report['damage']
+                    d10_character = report['d10_character']
+                    d10_enemy = report['d10_enemy']
+                    d6_dices = ' '.join([str(dice)
+                                        for dice in report['d6_dices']])
+                    sum_d6 = sum(report['d6_dices'])
 
                     print(
                         f'Персонаж {character._name} атакует {chosen_enemy._name} из оружия {chosen_weapon.name}\n')
+                    print(
+                        f'd10 на атаку {d10_character} \nБросок костей d6 {d6_dices} ({sum_d6}) \nd10 на уклонение {d10_enemy} ')
+                    if report['critical_result']:
+                        print(report['critical_result'])
                     print(f'{chosen_enemy._name} получает урон {damage}\n' if damage >
                           0 else f'{chosen_enemy._name} уклоняется от атаки\n')
 
@@ -136,13 +147,14 @@ def run_game():
                 print('### Ход Врага ###')
                 equipped_weapon_list = get_character_weapons_list(
                     character)
-                weapon_choice = int(randint(0, len(equipped_weapon_list) - 1))
+                weapon_choice = int(
+                    randint(0, len(equipped_weapon_list) - 1)) - 1
                 chosen_weapon = equipped_weapon_list[weapon_choice]
 
                 print(get_weapon_chosen_text(
                     equipped_weapon_list, weapon_choice))
 
-                target_chosen = int(randint(0, len(party.characters) - 1))
+                target_chosen = int(randint(0, len(party.characters) - 1)) - 1
                 chosen_character = party.characters[target_chosen]
 
                 print(
@@ -156,7 +168,7 @@ def run_game():
                     chosen_character,
                     chosen_weapon,
                     get_random_d10()
-                )
+                )['damage']
 
                 print(
                     f'Персонаж {character._name} атакует {chosen_character._name} из оружия {chosen_weapon.name}\n')
